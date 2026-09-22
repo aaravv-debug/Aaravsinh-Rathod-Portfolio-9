@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aaravsinh Rathod — Multidisciplinary Computer Engineering Student, UI/UX Designer & Prompt Engineer based in Ahmedabad, Gujarat.">
+    <meta name="author" content="Aaravsinh Rathod">
+    <title>Aaravsinh Rathod — Creative Engineer &amp; Prompt Architect</title>
+    
+    <!-- Google Fonts: Editorial Sans, Monumental Display, Street Graffiti & Monospace -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@700&family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Syne:wght@700;800&family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Rock+Salt&family=Permanent+Marker&family=Sedgwick+Ave&display=swap" rel="stylesheet">
+    
+    <!-- Material Symbols -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    
+    <!-- Design System Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-light">
+
+    <!-- =========================================
+       Awwwards Intro Preloader Component (Overlay)
+    ========================================= -->
+    <div id="intro-preloader" aria-label="Loading Portfolio" role="status">
+        <!-- Split Horizontal Shutter Wipe Panels -->
+        <div class="preloader-shutter preloader-shutter-top"></div>
+        <div class="preloader-shutter preloader-shutter-bottom"></div>
+
+        <!-- Preloader Content Stage -->
+        <div class="preloader-content-wrap">
+            <!-- Phase 1: 0% to 100% Vintage Serif Counter & Orbital Pencil Loader -->
+            <div class="preloader-phase preloader-counter-stage" id="preloader-counter-stage">
+                <div class="preloader-counter-display">
+                    <span id="preloader-num">0</span><span class="preloader-pct">%</span>
+                </div>
+                <div class="preloader-orbital-loader">
+                    <svg class="preloader-circle-svg" viewBox="0 0 120 120" width="120" height="120">
+                        <circle class="circle-track" cx="60" cy="60" r="50" />
+                        <circle class="circle-progress" id="preloader-circle" cx="60" cy="60" r="50" />
+                    </svg>
+                    <!-- Orbital Pencil Follower rotating around (60, 60) -->
+                    <div class="preloader-pencil-orbit" id="preloader-pencil-orbit">
+                        <div class="preloader-pencil-carrier">
+                            <svg class="preloader-pencil-icon" viewBox="0 0 32 32" width="24" height="24">
+                                <path d="M 23 4 L 28 9 L 12 25 L 5 27 L 7 20 Z" fill="#eedec5" stroke="#eedec5" stroke-width="1.2" stroke-linejoin="round"/>
+                                <path d="M 20 7 L 25 12" stroke="#0c0c0c" stroke-width="1.2"/>
+                                <path d="M 5 27 L 8 23.5 L 8.5 25 Z" fill="#0c0c0c"/>
+                                <circle cx="5" cy="27" r="1.2" fill="#fff"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <p class="preloader-tagline">Curating Digital Canvas</p>
+            </div>
+
+            <!-- Phase 2: Handwritten Calligraphy "Kem Cho?" Greeting -->
+            <div class="preloader-phase preloader-greeting-stage" id="preloader-greeting-stage">
+                <div class="preloader-calligraphy-wrap">
+                    <svg class="preloader-calligraphy-svg" viewBox="0 0 520 180" width="520" height="180">
+                        <g class="calligraphy-paths">
+                            <!-- Letter 'K' stem & flourishes -->
+                            <path class="draw-stroke" d="M 54 35 C 54 75, 52 115, 52 145" />
+                            <path class="draw-stroke" d="M 46 45 C 44 28, 62 26, 60 44 C 54 85, 52 115, 50 144" />
+                            <path class="draw-stroke" d="M 108 55 C 88 78, 70 94, 54 98" />
+                            <path class="draw-stroke" d="M 56 98 C 74 104, 98 128, 118 145" />
+                            <!-- Letter 'e' smooth cursive loop -->
+                            <path class="draw-stroke" d="M 112 125 C 118 100, 136 94, 146 104 C 154 116, 138 134, 118 136 C 132 138, 146 132, 158 116" />
+                            <!-- Letter 'm' three smooth arches -->
+                            <path class="draw-stroke" d="M 158 116 C 158 126, 156 138, 158 142" />
+                            <path class="draw-stroke" d="M 158 122 C 166 106, 182 106, 186 122 C 188 132, 186 138, 188 142" />
+                            <path class="draw-stroke" d="M 188 122 C 196 106, 212 106, 216 122 C 218 132, 216 138, 222 140 C 230 142, 240 134, 250 120" />
+                            <!-- Flourish Connector -->
+                            <path class="draw-stroke" d="M 248 120 C 255 110, 268 112, 275 125" />
+                            <!-- Capital 'C' sweep -->
+                            <path class="draw-stroke" d="M 322 60 C 295 38, 260 55, 258 92 C 256 128, 290 146, 324 138 C 336 135, 342 125, 346 116" />
+                            <!-- Letter 'h' tall ascender with loop and arch -->
+                            <path class="draw-stroke" d="M 344 118 C 344 90, 350 50, 352 32 C 348 55, 342 105, 344 142" />
+                            <path class="draw-stroke" d="M 344 122 C 354 106, 370 106, 374 122 C 376 132, 374 138, 376 142 C 380 144, 388 138, 396 124" />
+                            <!-- Letter 'o' smooth loop with outgoing flourish -->
+                            <path class="draw-stroke" d="M 398 124 C 394 108, 414 98, 426 110 C 434 122, 428 142, 410 142 C 396 142, 394 128, 406 116 C 416 106, 430 110, 438 114 L 450 114" />
+                            <!-- Question Mark '?' and dot -->
+                            <path class="draw-stroke" d="M 466 68 C 466 48, 492 46, 495 66 C 498 86, 478 96, 478 116" />
+                            <path class="draw-stroke stroke-dot" d="M 478 138 A 2.5 2.5 0 1 1 478 143 A 2.5 2.5 0 1 1 478 138" />
+                        </g>
+                    </svg>
+                    <div class="preloader-greeting-sub">
+                        <span class="sub-gujarati">કેમ છો?</span>
+                        <span class="sub-sep">•</span>
+                        <span class="sub-english">Ahmedabad, India</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Luxury Cursor -->
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-outline" id="cursor-outline"></div>
+
+    <!-- Minimalist Editorial Header -->
+    <header class="editorial-header" id="header">
+        <div class="header-inner">
+            <a href="#hero" class="brand-monogram" aria-label="Aaravsinh Rathod">
+                <span class="mono-initials">AR</span>
+                <span class="mono-fullname">Aaravsinh<span class="text-royal">.R</span></span>
+            </a>
+
+            <nav class="editorial-nav" id="nav-menu">
+                <a href="#hero" class="nav-item active">Home</a>
+                <a href="#about" class="nav-item">About</a>
+                <a href="#dossier" class="nav-item">Curriculum</a>
+                <a href="#skills" class="nav-item">Toolkit</a>
+                <a href="#works" class="nav-item">Works</a>
+                <a href="#contact" class="nav-item">Contact</a>
+                <a href="#contact" class="btn-pill btn-pill-royal mobile-menu-cta">
+                    <span>Let's Talk</span>
+                    <span class="material-symbols-outlined text-sm">arrow_outward</span>
+                </a>
+            </nav>
+
+            <div class="header-actions">
+                <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle Theme Mode">
+                    <span class="material-symbols-outlined" id="theme-icon">dark_mode</span>
+                </button>
+                <a href="#contact" class="btn-pill btn-pill-royal">
+                    <span>Let's Talk</span>
+                    <span class="material-symbols-outlined text-sm">arrow_outward</span>
+                </a>
+                <button class="mobile-menu-btn" id="mobile-toggle" aria-label="Toggle Navigation">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- =========================================
+           1. HERO SECTION (Exact Behance Slide 1 Recreation)
+        ========================================= -->
+        <section class="hero-editorial-section" id="hero">
+            <div class="container hero-container">
+                <!-- Top Action Capsules -->
+                <div class="behance-hero-top-bar">
+                    <div class="behance-action-capsules">
+                        <a href="#contact" class="hero-status-pill" title="Aaravsinh is available for hire — Click to get in touch">
+                            <span class="status-pulse-dot"></span>
+                            <span class="status-pill-text">Available for hire</span>
+                            <span class="material-symbols-outlined status-pill-arrow">arrow_outward</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Main Visual Canvas (Matches Reference Image 1:1) -->
+                <div class="hero-canvas-composition">
+                    <!-- Top-Left Graffiti "My" with Downward Arrow -->
+                    <div class="street-graffiti-my" aria-label="My">
+                        <svg viewBox="0 0 160 175" fill="none" xmlns="http://www.w3.org/2000/svg" class="svg-graffiti-my">
+                            <!-- Raw marker stroke for "M" -->
+                            <path d="M 22 110 L 32 24 L 54 74 L 78 26 L 90 108" stroke="currentColor" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" />
+                            <!-- Connected marker stroke for "y" with descending arrow stem -->
+                            <path d="M 92 60 C 94 62 100 96 114 96 C 128 96 136 68 136 50 L 132 114 C 130 138 118 152 102 162" stroke="currentColor" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" />
+                            <!-- Sharp marker arrow tip pointing down-right toward PORTFOLIO -->
+                            <path d="M 88 144 L 102 166 L 124 156" stroke="currentColor" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+
+                    <!-- Monumental Outline "PORTFOLIO" with Individual Letter Spans -->
+                    <div class="monumental-portfolio-wrap">
+                        <h1 class="outline-portfolio-title" aria-label="PORTFOLIO"><span class="portfolio-char" style="--char-index: 0">P</span><span class="portfolio-char" style="--char-index: 1">O</span><span class="portfolio-char" style="--char-index: 2">R</span><span class="portfolio-char" style="--char-index: 3">T</span><span class="portfolio-char" style="--char-index: 4">F</span><span class="portfolio-char" style="--char-index: 5">O</span><span class="portfolio-char" style="--char-index: 6">L</span><span class="portfolio-char" style="--char-index: 7">I</span><span class="portfolio-char" style="--char-index: 8">O</span></h1>
+                    </div>
+
+                    <!-- Soft Muted Street Calligraphy "Aaravsinh" behind the subject -->
+                    <div class="hero-street-watermark" aria-hidden="true">
+                        Aaravsinh
+                    </div>
+
+                    <!-- Studio Cutout Portrait & Nameplate -->
+                    <div class="hero-subject-stage">
+                        <div class="portrait-cutout-box" id="portrait-wrap">
+                            <img src="assets/aaravsinh-hero-final.png" alt="Aaravsinh Rathod" class="hero-portrait-cutout" id="hero-portrait-img">
+                        </div>
+
+                    </div>
+
+                    <!-- Floating Hire Capsule at Bottom-Center (Matches reference image) -->
+                    <div class="hire-floating-capsule" id="hire-capsule">
+                        <div class="capsule-body-left">
+                            <div class="capsule-avatar-wrap">
+                                <img src="assets/profile.jpg" alt="Aaravsinh Rathod" class="capsule-avatar-img">
+                                <span class="capsule-status-dot" title="Available for hire"></span>
+                            </div>
+                            <div class="capsule-info-text">
+                                <div class="capsule-info-title">Aaravsinh is available for hire</div>
+                                <div class="capsule-info-avail">Availability: <span class="avail-tag">Now</span></div>
+                            </div>
+                        </div>
+                        <div class="capsule-body-right">
+                            <a href="#contact" class="capsule-hire-cta">Get in touch</a>
+                            <button class="capsule-dismiss-btn" id="close-hire-capsule" aria-label="Dismiss">&times;</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- Monumental Behance Typography: "My Name is Aaravsinh and I am a Freelance Website designer & developer." -->
+                <div class="behance-hero-statement">
+                    <p class="hero-intro-lead">
+                        <em>My Name is</em> <strong class="text-royal">Aaravsinh</strong> <em>and I am a Freelance</em>
+                    </p>
+                    <div class="monumental-title-wrap">
+                        <span class="word-graphic">Website</span>
+                        <span class="word-designer">designer &amp; developer<span class="designer-dot">.</span></span>
+                    </div>
+                </div>
+
+                <!-- About Me Editorial Block -->
+                <div class="behance-hero-about">
+                    <h3 class="hero-about-heading">About <em>Me</em></h3>
+                    <p class="hero-about-text">
+                        I am a website designer &amp; developer and creative technologist with confidence in my abilities and the capacity to work effectively under tight deadlines. My passion lies in creating high-performance interactive web applications, brand identity systems, and conversion-focused digital experiences. Each day, I strive to push the boundaries of my creativity and deliver outstanding results.
+                    </p>
+                </div>
+
+                <!-- Editorial Dossier Row (Centered, Attractive Modular Cards) -->
+                <div class="behance-dossier-row">
+                    <!-- Column 1: Education -->
+                    <div class="behance-dossier-column bd-card">
+                        <div class="bd-card-header">
+                            <div class="bd-card-icon-wrap">
+                                <span class="material-symbols-outlined">school</span>
+                            </div>
+                            <div class="bd-card-title-group">
+                                <span class="bd-card-kicker">ACADEMICS</span>
+                                <h4 class="bd-column-title">Education</h4>
+                            </div>
+                        </div>
+
+                        <div class="bd-card-body">
+                            <div class="bd-entry-block">
+                                <div class="bd-entry-top">
+                                    <span class="bd-pill-tag active">2023 — 2027</span>
+                                </div>
+                                <h5 class="bd-entry-title text-royal">B.Tech in Computer Engineering</h5>
+                                <span class="bd-entry-subtitle">Gandhinagar University, Gujarat</span>
+                                <p class="bd-entry-desc">Focus on intuitive UI/UX architecture &amp; modern frontend engineering.</p>
+                            </div>
+
+                            <div class="bd-entry-divider"></div>
+
+                            <div class="bd-entry-block">
+                                <div class="bd-entry-top">
+                                    <span class="bd-pill-tag">2021 — 2023</span>
+                                </div>
+                                <h5 class="bd-entry-title">Intermediate (HSC Science)</h5>
+                                <span class="bd-entry-subtitle">Super English School, Ranip</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 2: Freelance Website Designer & Developer -->
+                    <div class="behance-dossier-column bd-card">
+                        <div class="bd-card-header">
+                            <div class="bd-card-icon-wrap">
+                                <span class="material-symbols-outlined">laptop_mac</span>
+                            </div>
+                            <div class="bd-card-title-group">
+                                <span class="bd-card-kicker">SERVICES &amp; STUDIO</span>
+                                <h4 class="bd-column-title">Freelance Practice</h4>
+                            </div>
+                        </div>
+
+                        <div class="bd-card-body">
+                            <div class="bd-freelance-top">
+                                <h5 class="bd-entry-title">Website Designer &amp; Developer</h5>
+                                <span class="bd-pill-tag active"><span class="pulse-dot"></span>Self Employed • 2+ Yrs</span>
+                            </div>
+
+                            <ul class="bd-entry-bullets">
+                                <li>
+                                    <span class="bullet-gem">✦</span>
+                                    <span><strong>End-to-End Solutions:</strong> UI/UX design, modern code &amp; conversion marketing collaterals.</span>
+                                </li>
+                                <li>
+                                    <span class="bullet-gem">✦</span>
+                                    <span><strong>Creative Direction:</strong> Rapid prototyping, clean architecture &amp; timely execution.</span>
+                                </li>
+                                <li>
+                                    <span class="bullet-gem">✦</span>
+                                    <span><strong>Diverse Sectors:</strong> Tech startups, SaaS platforms, and modern e-commerce.</span>
+                                </li>
+                            </ul>
+
+                            <div class="bd-tech-chips">
+                                <span>Figma</span>
+                                <span>Frontend</span>
+                                <span>UI/UX</span>
+                                <span>AI Prompts</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 3: Personal Info -->
+                    <div class="behance-dossier-column bd-card">
+                        <div class="bd-card-header">
+                            <div class="bd-card-icon-wrap">
+                                <span class="material-symbols-outlined">badge</span>
+                            </div>
+                            <div class="bd-card-title-group">
+                                <span class="bd-card-kicker">DIRECT CONTACT</span>
+                                <h4 class="bd-column-title">Personal <span class="text-royal">Info</span></h4>
+                            </div>
+                        </div>
+
+                        <div class="bd-card-body">
+                            <div class="bd-info-table">
+                                <div class="bd-info-item">
+                                    <span class="bdi-icon-wrap"><span class="material-symbols-outlined">person</span></span>
+                                    <div class="bdi-content">
+                                        <span class="bdi-key">Name</span>
+                                        <span class="bdi-val bdi-val-strong">Aaravsinh Rathod</span>
+                                    </div>
+                                </div>
+
+                                <div class="bd-info-item">
+                                    <span class="bdi-icon-wrap"><span class="material-symbols-outlined">calendar_today</span></span>
+                                    <div class="bdi-content">
+                                        <span class="bdi-key">Date Of Birth</span>
+                                        <span class="bdi-val">07/01/2004 (20 Years)</span>
+                                    </div>
+                                </div>
+
+                                <div class="bd-info-item">
+                                    <span class="bdi-icon-wrap"><span class="material-symbols-outlined">mail</span></span>
+                                    <div class="bdi-content">
+                                        <span class="bdi-key">Email</span>
+                                        <a href="mailto:aaravrathod168@gmail.com" class="bdi-val bdi-email">aaravrathod168@gmail.com</a>
+                                    </div>
+                                </div>
+
+                                <div class="bd-info-item">
+                                    <span class="bdi-icon-wrap"><span class="material-symbols-outlined">location_on</span></span>
+                                    <div class="bdi-content">
+                                        <span class="bdi-key">Location</span>
+                                        <span class="bdi-val">Ahmedabad, Gujarat, India</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bd-avail-badge">
+                                <span class="pulse-dot"></span>
+                                <span>Available for Select Projects</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </section>
+
+        <!-- Subtle Section Running Ticker -->
+        <div class="editorial-ticker-wrap">
+            <div class="ticker-flow">
+                <span>✦ PROMPT OPTIMIZATION</span>
+                <span>✦ HIGH-CONVERTING UI/UX</span>
+                <span>✦ FIGMA WIREFRAMES</span>
+                <span>✦ SYSTEM CONSTRAINTS BENCHMARKING</span>
+                <span>✦ DIGITAL BRANDING &amp; CANVA</span>
+                <span>✦ FRONTEND CODE LOGIC</span>
+                <span>✦ PROMPT OPTIMIZATION</span>
+                <span>✦ HIGH-CONVERTING UI/UX</span>
+                <span>✦ FIGMA WIREFRAMES</span>
+                <span>✦ SYSTEM CONSTRAINTS BENCHMARKING</span>
+            </div>
+        </div>
+
+        <!-- =========================================
+           2. ABOUT ME & MANIFESTO (Exact Reference Recreation)
+        ========================================= -->
+        <section class="editorial-section about-showcase-section" id="about">
+            <div class="container about-container-fluid">
+                <!-- Section Header (Matches Reference: Kicker + Blue Line + ABOUT ME.) -->
+                <div class="about-header-lockup">
+                    <div class="about-kicker-row">
+                        <span class="about-kicker-label">ABOUT ME</span>
+                        <span class="about-kicker-divider"></span>
+                    </div>
+                    <h2 class="about-hero-title">ABOUT ME<span class="about-title-dot">.</span></h2>
+                </div>
+
+                <!-- 3-Column Asymmetric Canvas (Manifesto + Metrics + Polaroid Card) -->
+                <div class="about-master-composition">
+                    
+                    <!-- Left Column: Manifesto Quote & Narrative -->
+                    <div class="about-narrative-panel">
+                        <div class="about-manifesto-card">
+                            <span class="manifesto-badge">DESIGN MANIFESTO</span>
+                            <blockquote class="manifesto-quote">
+                                “Code establishes functional architecture; prompt systems introduce intelligence; clean, empathetic UI builds lasting human connection.”
+                            </blockquote>
+                            <span class="manifesto-author">— Aaravsinh Rathod</span>
+                        </div>
+
+                        <p class="about-lead-copy">
+                            Currently pursuing a <strong>Bachelor of Technology in Computer Engineering at Gandhinagar University (2023–2027)</strong>, I have cultivated a distinct passion for the sweet spot where technical engineering rigor converges with elegant, high-conversion visual design.
+                        </p>
+
+                        <p class="about-body-copy">
+                            With hands-on proficiency in Canva, Figma, modern frontend code, and AI-assisted workflows, I love turning ideas into real, useful digital products.
+                        </p>
+                    </div>
+
+                    <!-- Center Column: 2x2 Stats Grid with Royal Blue Highlight Card -->
+                    <div class="about-metrics-panel">
+                        <div class="about-stats-matrix">
+                            <!-- Cell 1: 4th Year B.Tech -->
+                            <div class="stat-matrix-cell cell-tl">
+                                <span class="stat-value-blue">4th</span>
+                                <h4 class="stat-heading">Year B. Tech</h4>
+                                <p class="stat-detail">Computer Engineering at Gandhinagar University</p>
+                            </div>
+
+                            <!-- Cell 2: 2+ Core Projects -->
+                            <div class="stat-matrix-cell cell-tr">
+                                <span class="stat-value-blue">2+</span>
+                                <h4 class="stat-heading">Core Projects</h4>
+                                <p class="stat-detail">Cross-Border Trade UI &amp; AI Prompt Simulator</p>
+                            </div>
+
+                            <!-- Cell 3: 10+ Brand Assets -->
+                            <div class="stat-matrix-cell cell-bl">
+                                <span class="stat-value-blue">10+</span>
+                                <h4 class="stat-heading">Brand Assets</h4>
+                                <p class="stat-detail">Unified Social Media Creatives &amp; Brand Identity</p>
+                            </div>
+
+                            <!-- Cell 4: 100% Commitment (Solid Royal Blue Card) -->
+                            <div class="stat-matrix-cell cell-br stat-highlight-royal">
+                                <span class="stat-value-white">100%</span>
+                                <h4 class="stat-heading-white">Commitment</h4>
+                                <p class="stat-detail-white">Dedicated to functional, creative and user-centric solutions.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Tactile Polaroid Photo Card with Washi Tape, Doodle & Signature -->
+                    <div class="about-polaroid-stage" id="polaroid-stage">
+                        
+                        <!-- Stacked Physical Polaroid Composition -->
+                        <div class="polaroid-stack-wrap" id="polaroid-card-wrap">
+                            <!-- Ghost Paper Card Behind (Tangible Depth) -->
+                            <div class="polaroid-ghost-backing" aria-hidden="true"></div>
+
+                            <!-- Main Tactile Polaroid Card -->
+                            <div class="polaroid-primary-card">
+                                <!-- Blue Washi Tape across Top-Left Corner -->
+                                <div class="polaroid-washi-tape" aria-hidden="true">
+                                    <span class="washi-tape-strip"></span>
+                                </div>
+
+                                <!-- Studio Photo of Aaravsinh (Image 2) -->
+                                <div class="polaroid-photo-frame">
+                                    <img src="assets/aaravsinh-studio-new.jpg" alt="Aaravsinh Rathod in Studio" class="polaroid-portrait-img">
+                                </div>
+                            </div>
+
+                            <!-- Handwritten Doodle & Curved Arrow to Photo (Hugs the Photo Card) -->
+                            <div class="polaroid-doodle-callout" aria-hidden="true">
+                                <div class="doodle-words">
+                                    <span>Build</span>
+                                    <span>Design</span>
+                                    <span>Create</span>
+                                </div>
+                                <svg class="doodle-curved-arrow" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 38 6 C 48 18, 38 34, 18 42" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                                    <path d="M 28 36 L 14 43 L 20 49" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+
+                            <!-- Handwritten Blue Ink Signature at Bottom-Right -->
+                            <div class="polaroid-signature-under">
+                                <span class="signature-cursive">Aaravsinh Rathod</span>
+                                <svg class="signature-underline-stroke" viewBox="0 0 160 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path d="M 4 11 C 45 4, 110 14, 156 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                                </svg>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================
+           3. 3-COLUMN EDITORIAL DOSSIER (Behance Style)
+        ========================================= -->
+        <section class="editorial-section section-cream" id="dossier">
+            <div class="container">
+                <!-- Behance Signature Watermark Banner -->
+                <div class="behance-category-banner">
+                    <span class="banner-watermark">Education</span>
+                    <h2 class="banner-title">ACADEMIC CAREER LOG.</h2>
+                </div>
+
+                <!-- Academic Blue Pipe Timeline (Exact Reference Animation) -->
+                <div class="academic-pipe-section-wrap">
+                    <div class="timeline-intro-bar">
+                        <span class="timeline-badge-cyber"><span class="pulse-cyan"></span> LIVE SIGNAL CONNECTION</span>
+                        <p class="timeline-intro-hint">Scroll down to illuminate the blue pipe joining my academic career milestones</p>
+                    </div>
+
+                    <div class="academic-pipe-timeline" id="academic-pipe-timeline">
+                        <!-- The Animated Vertical Blue Pipe Track -->
+                        <div class="timeline-pipe-track">
+                            <div class="timeline-pipe-fill" id="education-pipe-fill"></div>
+                        </div>
+
+                        <!-- Milestone 1: B.Tech (Right) -->
+                        <div class="timeline-pipe-item item-right" data-milestone="1">
+                            <div class="timeline-node" title="2023 — 2027 Milestone">
+                                <span class="node-ring"></span>
+                                <span class="node-core"></span>
+                            </div>
+                            <div class="timeline-branch"></div>
+                            <div class="timeline-card tilt-card">
+                                <div class="timeline-card-header">
+                                    <span class="timeline-year-glow">2023 — 2027</span>
+                                    <span class="timeline-status-pill"><span class="pulse-dot"></span> In Progress</span>
+                                </div>
+                                <h4 class="timeline-role-title">Bachelor of Technology</h4>
+                                <span class="timeline-institution">Gandhinagar University, Gujarat</span>
+                                <p class="timeline-desc">
+                                    <strong>Major:</strong> Computer Engineering. Developing strong analytical fundamentals in data structures, algorithms, database management, and applying code logic to intuitive front-end architectures.
+                                </p>
+                                <div class="timeline-tags">
+                                    <span>Computer Engineering</span>
+                                    <span>Algorithms</span>
+                                    <span>UI Architecture</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Milestone 2: HSC Science (Left) -->
+                        <div class="timeline-pipe-item item-left" data-milestone="2">
+                            <div class="timeline-node" title="2021 — 2023 Milestone">
+                                <span class="node-ring"></span>
+                                <span class="node-core"></span>
+                            </div>
+                            <div class="timeline-branch"></div>
+                            <div class="timeline-card tilt-card">
+                                <div class="timeline-card-header">
+                                    <span class="timeline-year-glow">2021 — 2023</span>
+                                    <span class="timeline-status-pill completed">Completed</span>
+                                </div>
+                                <h4 class="timeline-role-title">Higher Secondary Certificate (HSC)</h4>
+                                <span class="timeline-institution">Super English School, Ranip</span>
+                                <p class="timeline-desc">
+                                    Class XII (Science Stream) with core specialization in Mathematics &amp; Physics. Built the foundational analytical and quantitative problem-solving skills for software engineering.
+                                </p>
+                                <div class="timeline-tags">
+                                    <span>HSC Science</span>
+                                    <span>Mathematics</span>
+                                    <span>Physics</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Milestone 3: SSC (Right) -->
+                        <div class="timeline-pipe-item item-right" data-milestone="3">
+                            <div class="timeline-node" title="2021 Milestone">
+                                <span class="node-ring"></span>
+                                <span class="node-core"></span>
+                            </div>
+                            <div class="timeline-branch"></div>
+                            <div class="timeline-card tilt-card">
+                                <div class="timeline-card-header">
+                                    <span class="timeline-year-glow">2021</span>
+                                    <span class="timeline-status-pill distinction">★ Distinction (83.23%)</span>
+                                </div>
+                                <h4 class="timeline-role-title">Secondary School Certificate (SSC)</h4>
+                                <span class="timeline-institution">Super English School, Ranip</span>
+                                <p class="timeline-desc">
+                                    Class X General Academic Curriculum completed with top academic distinction. Consistent excellence across mathematical sciences and language studies.
+                                </p>
+                                <div class="timeline-tags">
+                                    <span>SSC Distinction</span>
+                                    <span>Top Percentile</span>
+                                    <span>General Sciences</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sleek Bottom Coordinates Strip (Maintains Contact Access) -->
+                <div class="academic-footer-coordinates">
+                    <div class="afc-item">
+                        <span class="material-symbols-outlined afc-icon">badge</span>
+                        <div class="afc-text">
+                            <span class="afc-label">CANDIDATE</span>
+                            <strong>Aaravsinh Rathod</strong>
+                        </div>
+                    </div>
+                    <div class="afc-item">
+                        <span class="material-symbols-outlined afc-icon">location_on</span>
+                        <div class="afc-text">
+                            <span class="afc-label">LOCATION</span>
+                            <span>Ahmedabad, Gujarat</span>
+                        </div>
+                    </div>
+                    <div class="afc-item">
+                        <span class="material-symbols-outlined afc-icon">verified</span>
+                        <div class="afc-text">
+                            <span class="afc-label">STATUS</span>
+                            <span class="text-royal">Open for Placement &amp; Commissions</span>
+                        </div>
+                    </div>
+                    <a href="#contact" class="btn-pill btn-pill-royal afc-cta">
+                        <span>Get In Touch</span>
+                        <span class="material-symbols-outlined text-sm">arrow_outward</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================
+           4. SKILLS & TOOLKIT
+        ========================================= -->
+        <section class="editorial-section" id="skills">
+            <div class="container">
+                <!-- Behance Signature Watermark Banner -->
+                <div class="behance-category-banner">
+                    <span class="banner-watermark">Toolkit</span>
+                    <h2 class="banner-title">SKILLS &amp; TOOLKIT.</h2>
+                </div>
+
+                <div class="skills-editorial-grid">
+                    <!-- Category 1 -->
+                    <div class="skill-pillar-card tilt-card">
+                        <div class="sp-badge">// 01. ARTIFICIAL INTELLIGENCE</div>
+                        <h3 class="sp-title">Prompt Engineering</h3>
+                        <div class="sp-chips">
+                            <div class="sp-chip"><span>⚡</span> Prompt Architectures</div>
+                            <div class="sp-chip"><span>🤖</span> Generative AI Models</div>
+                            <div class="sp-chip"><span>🎯</span> Constraint Benchmarking</div>
+                            <div class="sp-chip"><span>🔄</span> Output Drift Reduction</div>
+                            <div class="sp-chip"><span>📐</span> Image Prompt Tuning</div>
+                        </div>
+                    </div>
+
+                    <!-- Category 2 -->
+                    <div class="skill-pillar-card tilt-card">
+                        <div class="sp-badge">// 02. DESIGN SYSTEMS</div>
+                        <h3 class="sp-title">UI/UX &amp; Brand Design</h3>
+                        <div class="sp-chips">
+                            <div class="sp-chip"><span>🖥️</span> Web User Interface (UI)</div>
+                            <div class="sp-chip"><span>📱</span> Responsive Wireframing</div>
+                            <div class="sp-chip"><span>🎨</span> Canva &amp; Figma Suite</div>
+                            <div class="sp-chip"><span>✒️</span> Typography Hierarchy</div>
+                            <div class="sp-chip"><span>💎</span> Digital Brand Equity</div>
+                        </div>
+                    </div>
+
+                    <!-- Category 3 -->
+                    <div class="skill-pillar-card tilt-card">
+                        <div class="sp-badge">// 03. ENGINEERING</div>
+                        <h3 class="sp-title">Code &amp; Frontend</h3>
+                        <div class="sp-chips">
+                            <div class="sp-chip"><span>🌐</span> HTML5 &amp; Modern CSS3</div>
+                            <div class="sp-chip"><span>🚀</span> Tailwind CSS Frameworks</div>
+                            <div class="sp-chip"><span>💻</span> JavaScript Core Logic</div>
+                            <div class="sp-chip"><span>⚙️</span> AI-Driven Code Assembly</div>
+                            <div class="sp-chip"><span>🔗</span> Component Tokenization</div>
+                        </div>
+                    </div>
+
+                    <!-- Category 4 -->
+                    <div class="skill-pillar-card tilt-card">
+                        <div class="sp-badge">// 04. EXECUTION</div>
+                        <h3 class="sp-title">Core Disciplines</h3>
+                        <div class="sp-chips">
+                            <div class="sp-chip"><span>🧠</span> Analytical Problem Solving</div>
+                            <div class="sp-chip"><span>🤝</span> Client Communication</div>
+                            <div class="sp-chip"><span>⚡</span> Rapid Tool Adaptability</div>
+                            <div class="sp-chip"><span>📊</span> Social Media Strategy</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================
+           5. SELECTED WORKS (Exact Behance Style Presentation)
+        ========================================= -->
+        <section class="editorial-section section-cream" id="works">
+            <div class="container">
+                <!-- Behance Signature Watermark Banner -->
+                <div class="behance-category-banner">
+                    <span class="banner-watermark">Projects</span>
+                    <h2 class="banner-title">SELECTED WORKS.</h2>
+                </div>
+
+                <!-- PROJECT 1: Cross-Border E-Commerce Platform -->
+                <article class="work-showcase-article">
+                    <!-- High-End Editorial Mockup Visual -->
+                    <div class="work-visual-canvas tilt-card">
+                        <img src="assets/project-trade.jpg" alt="Cross-Border E-Commerce UI/UX Showcase" class="work-feature-img">
+                    </div>
+
+                    <!-- Editorial Formula & Narrative (Behance Slide 4 Style) -->
+                    <div class="work-narrative-block">
+                        <div class="work-tags-row">
+                            <span class="wt-pill royal">UI/UX CASE STUDY</span>
+                            <span class="wt-pill">FIGMA &amp; CANVA</span>
+                            <span class="wt-pill">GLOBAL TRADE</span>
+                        </div>
+
+                        <!-- Behance Formula Heading -->
+                        <h3 class="work-formula-title">
+                            Global Supply Chain + Intuitive UI = <span class="text-royal">Frictionless Trade</span>
+                        </h3>
+
+                        <p class="work-editorial-text">
+                            The Cross-Border E-Commerce Platform UI/UX creatively blends the complex logistical requirements of global sourcing — <strong>multi-currency settlements, freight corridor tracking, and localized customs clearance</strong> — into an accessible, elegant digital interface. The structured typography and clean card modularity reflect the precision of modern supply chain operations, capturing the <strong>confidence and clarity of executing trade contracts across 142 currencies</strong>.
+                        </p>
+
+                        <div class="work-actions-bar">
+                            <a href="https://claude.ai/public/artifacts/c6a62127-124c-4302-a00c-dd80ea4cb727" target="_blank" rel="noopener" class="btn-pill btn-pill-royal">
+                                <span>View Live Prototype</span>
+                                <span class="material-symbols-outlined text-sm">open_in_new</span>
+                            </a>
+                            <button class="btn-pill btn-pill-outline open-modal-btn" data-project="ecommerce">
+                                <span>Case Study Breakdown</span>
+                                <span class="material-symbols-outlined text-sm">visibility</span>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <div class="work-divider-line"></div>
+
+                <!-- PROJECT 2: Bright Dental Clinic Web Platform -->
+                <article class="work-showcase-article">
+                    <!-- High-End Editorial Mockup Visual -->
+                    <div class="work-visual-canvas tilt-card">
+                        <video class="work-feature-img work-feature-video" autoplay loop muted playsinline poster="assets/bright_dental.png">
+                            <source src="assets/bright-dental-clinic.mp4" type="video/mp4">
+                            <img src="assets/bright_dental.png" alt="Bright Dental Clinic Patient Care Web Platform" class="work-feature-img">
+                        </video>
+                    </div>
+
+                    <!-- Editorial Formula & Narrative -->
+                    <div class="work-narrative-block">
+                        <div class="work-tags-row">
+                            <span class="wt-pill royal">HEALTHCARE UI/UX</span>
+                            <span class="wt-pill">REACT &amp; TAILWIND</span>
+                            <span class="wt-pill">APPOINTMENT ENGINE</span>
+                        </div>
+
+                        <h3 class="work-formula-title">
+                            Patient-First Design + Instant Booking Flow = <span class="text-royal">Frictionless Clinic UX</span>
+                        </h3>
+
+                        <p class="work-editorial-text">
+                            Engineered an empathetic, high-conversion healthcare web application for <strong>Bright Dental Clinic</strong> (Dr. Rushika Parmar &amp; Dr. Chirag Parmar, Prachi, Gir Somnath). The platform streamlines patient scheduling with an <strong>interactive live appointment calendar &amp; WhatsApp confirmation flow, dynamic before/after smile transformations, and trilingual language support (English, Hindi, Gujarati)</strong> to deliver warm, transparent digital care across diverse patient communities.
+                        </p>
+
+                        <div class="work-actions-bar">
+                            <a href="https://bright-dental-clinic-omega.vercel.app/" target="_blank" rel="noopener" class="btn-pill btn-pill-royal">
+                                <span>View Live Website</span>
+                                <span class="material-symbols-outlined text-sm">open_in_new</span>
+                            </a>
+                            <a href="assets/bright-dental-clinic.mp4" target="_blank" rel="noopener" class="btn-pill btn-pill-outline">
+                                <span>Watch Video Demo</span>
+                                <span class="material-symbols-outlined text-sm">play_circle</span>
+                            </a>
+                            <button class="btn-pill btn-pill-outline open-modal-btn" data-project="simulator">
+                                <span>Case Study Breakdown</span>
+                                <span class="material-symbols-outlined text-sm">visibility</span>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <div class="work-divider-line"></div>
+
+                <!-- PROJECT 3: Brand Identity & Social Media System -->
+                <article class="work-showcase-article">
+                    <div class="work-visual-canvas tilt-card">
+                        <img src="assets/project-branding.jpg" alt="Brand Identity & Social Media Design Suite" class="work-feature-img">
+                    </div>
+
+                    <div class="work-narrative-block">
+                        <div class="work-tags-row">
+                            <span class="wt-pill royal">DIGITAL BRANDING</span>
+                            <span class="wt-pill">CANVA TEMPLATES</span>
+                            <span class="wt-pill">ASSET SUITE</span>
+                        </div>
+
+                        <h3 class="work-formula-title">
+                            Tailored Color Palettes + Typography Scales = <span class="text-royal">Unified Brand Equity</span>
+                        </h3>
+
+                        <p class="work-editorial-text">
+                            A modular branding system engineered for cohesive social media presence and commercial pitch collateral. Developed 10+ reusable templates, tailored HSL color harmonies in <strong>royal blue, terracotta, and deep charcoal</strong>, and integrated custom GenAI visual prompts that reduced weekly asset turnaround times by 40%.
+                        </p>
+
+                        <div class="work-actions-bar">
+                            <button class="btn-pill btn-pill-royal open-modal-btn" data-project="branding">
+                                <span>View Brand Guidelines</span>
+                                <span class="material-symbols-outlined text-sm">collections</span>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- =========================================
+           6. CONTACT & SIGNATURE "THANK YOU."
+        ========================================= -->
+        <section class="editorial-section" id="contact">
+            <div class="container">
+                <!-- Behance Signature Watermark Banner -->
+                <div class="behance-category-banner">
+                    <span class="banner-watermark">Contact</span>
+                    <h2 class="banner-title">LET'S TALK.</h2>
+                </div>
+
+                <div class="contact-editorial-layout">
+                    <!-- Left: Clean Editorial Form -->
+                    <div class="contact-form-column">
+                        <div class="form-header-badge">// DIRECT TRANSMISSION</div>
+                        <h3 class="form-main-heading">Initiate an Inquiry</h3>
+                        <p class="form-sub-intro">
+                            Have an opening for an engineering placement, a UI/UX wireframing engagement, or a prompt optimization project? Send a brief below.
+                        </p>
+
+                        <form id="portfolio-form" class="clean-form">
+                            <div class="form-twin-row">
+                                <div class="form-input-wrap">
+                                    <label for="name">Full Name *</label>
+                                    <input type="text" id="name" name="name" placeholder="e.g. Maya Patel" required>
+                                </div>
+                                <div class="form-input-wrap">
+                                    <label for="email">Email Address *</label>
+                                    <input type="email" id="email" name="email" placeholder="e.g. maya@company.com" required>
+                                </div>
+                            </div>
+
+                            <div class="form-input-wrap">
+                                <label for="subject">Subject / Opportunity *</label>
+                                <input type="text" id="subject" name="subject" placeholder="e.g. B.Tech Placement / Freelance Wireframe Project" required>
+                            </div>
+
+                            <div class="form-input-wrap">
+                                <label for="message">Message Details *</label>
+                                <textarea id="message" name="message" rows="4" placeholder="Describe the role or project requirements..." required></textarea>
+                            </div>
+
+                            <button type="submit" class="btn-pill btn-pill-royal btn-pill-submit" id="submit-btn">
+                                <span>Send Message</span>
+                                <span class="material-symbols-outlined text-sm">send</span>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Right: Coordinates & Direct Card -->
+                    <div class="contact-info-column">
+                        <div class="form-header-badge">// DIRECT CHANNELS</div>
+                        <h3 class="form-main-heading">Coordinates</h3>
+                        <p class="form-sub-intro">Feel free to reach out directly via email, telephone, or LinkedIn.</p>
+
+                        <div class="contact-channel-card">
+                            <div class="cc-detail">
+                                <span class="cc-label">PRIMARY EMAIL</span>
+                                <span class="cc-value" id="email-address">aaravrathod168@gmail.com</span>
+                            </div>
+                            <button class="btn-copy" id="copy-email-btn" title="Copy Email">
+                                <span class="material-symbols-outlined text-sm">content_copy</span>
+                                <span>Copy</span>
+                            </button>
+                        </div>
+
+                        <div class="contact-channel-card">
+                            <div class="cc-detail">
+                                <span class="cc-label">TELEPHONE</span>
+                                <span class="cc-value">+91 9106800472</span>
+                            </div>
+                            <a href="tel:+919106800472" class="btn-copy">
+                                <span class="material-symbols-outlined text-sm">call</span>
+                                <span>Call</span>
+                            </a>
+                        </div>
+
+                        <div class="contact-channel-card">
+                            <div class="cc-detail">
+                                <span class="cc-label">LOCATION</span>
+                                <span class="cc-value">Ahmedabad, Gujarat, India</span>
+                            </div>
+                            <span class="cc-tag">IST (UTC+5:30)</span>
+                        </div>
+
+                        <div class="social-links-grid">
+                            <a href="assets/Aaravsinh-Rathod-Resume.pdf" target="_blank" rel="noopener" class="social-link-pill pill-resume" title="View Aaravsinh's Resume (PDF)">
+                                <div class="slp-left">
+                                    <div class="slp-icon-box slp-icon-resume" aria-hidden="true">
+                                        <svg class="slp-logo-svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                            <polyline points="14 2 14 8 20 8"></polyline>
+                                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                                            <line x1="10" y1="9" x2="8" y2="9"></line>
+                                        </svg>
+                                    </div>
+                                    <div class="slp-text-group">
+                                        <span class="slp-title">Resume</span>
+                                        <span class="slp-sub">PDF Document</span>
+                                    </div>
+                                </div>
+                                <div class="slp-arrow-wrap" aria-hidden="true">
+                                    <span class="material-symbols-outlined slp-arrow-icon">arrow_outward</span>
+                                </div>
+                            </a>
+
+                            <a href="https://linkedin.com/in/aarav-amarsinh-rathod-743504351" target="_blank" rel="noopener" class="social-link-pill pill-linkedin" title="Connect with Aaravsinh on LinkedIn">
+                                <div class="slp-left">
+                                    <div class="slp-icon-box slp-icon-linkedin" aria-hidden="true">
+                                        <svg class="slp-logo-svg" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                                            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9h2.8v8.37h-2.8v-8.37M7.86 6.28a1.63 1.63 0 1 0 0 3.26 1.63 1.63 0 0 0 0-3.26z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="slp-text-group">
+                                        <span class="slp-title">LinkedIn</span>
+                                        <span class="slp-sub">Connect &amp; Network</span>
+                                    </div>
+                                </div>
+                                <div class="slp-arrow-wrap" aria-hidden="true">
+                                    <span class="material-symbols-outlined slp-arrow-icon">arrow_outward</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- =========================================
+       7. SIGNATURE "THANK YOU." FOOTER
+    ========================================= -->
+    <footer class="editorial-footer">
+        <!-- Giant Behance Signature Watermark -->
+        <div class="footer-thank-you-watermark" aria-hidden="true">
+            THANK YOU.
+        </div>
+
+        <div class="container footer-content-wrap">
+            <div class="footer-meta-row">
+                <div class="footer-brand-block">
+                    <span class="footer-logo">AARAVSINH<span class="text-royal">.R</span></span>
+                    <p class="footer-tagline">
+                        Computer Engineering Student, UI/UX Designer &amp; Prompt Engineer based in Ahmedabad, Gujarat.
+                    </p>
+                </div>
+
+                <div class="footer-nav-col">
+                    <span class="fn-title">NAVIGATION</span>
+                    <a href="#hero">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#dossier">Curriculum</a>
+                    <a href="#skills">Toolkit</a>
+                    <a href="#works">Works</a>
+                    <a href="#contact">Contact</a>
+                </div>
+
+                <div class="footer-nav-col">
+                    <span class="fn-title">EDUCATION</span>
+                    <span>Gandhinagar University</span>
+                    <span>B.Tech Computer Engineering</span>
+                    <span>Class of 2027</span>
+                </div>
+            </div>
+
+            <div class="footer-copyright-bar">
+                <p>&copy; 2026 Aaravsinh Rathod. Crafted with modern Behance editorial aesthetics. All rights reserved.</p>
+                <button class="btn-back-top" id="back-to-top">
+                    <span>Back to Top</span>
+                    <span class="material-symbols-outlined text-sm">arrow_upward</span>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Case Study Modal -->
+    <div class="modal-backdrop" id="case-modal" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="modal-card">
+            <div class="modal-top-bar">
+                <div class="modal-indicator-dots">
+                    <span></span><span></span><span></span>
+                </div>
+                <span class="modal-title-text" id="modal-title-display">Project Case Study</span>
+                <button class="modal-close" id="modal-close-btn" aria-label="Close modal">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="modal-scroll-area" id="modal-content-area">
+                <!-- Dynamically populated by script.js -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="editorial-toast" id="toast-msg" role="status" aria-live="polite"></div>
+
+
+    <!-- GSAP Animation Engine via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <!-- Script Logic -->
+    <script src="script.js"></script>
+</body>
+</html>

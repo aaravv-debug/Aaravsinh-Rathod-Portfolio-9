@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+package.json
+package-lock.json
+.package-lock.json
+
+# Development & Test Scratch Scripts
+capture-about.js
+create-cutout.js
+cutout.html
+get-header-rects.js
+inspect-colors.js
+process-cutout.js
+process-user-portrait.js
+test-silhouette.js
+test-threshold.js
+server.js
+
+# Temporary files
+*-opt.mp4
+*.tmp
+*.log
+
+# OS metadata
+.DS_Store
+Thumbs.db
+desktop.ini

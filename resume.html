@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aaravsinh Rathod Professional Resume. Computer Engineering student, UI/UX Designer & Prompt Engineer. ATS-friendly layout.">
+    <title>Aaravsinh Rathod | Professional Resume</title>
+    <style>
+        /* Modern font imports */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+        :root {
+            --bg-color: #060913;
+            --card-color: #0d1428;
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #3b82f6;
+            --border-color: rgba(59, 130, 246, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.5;
+            padding: 40px 20px;
+        }
+
+        .resume-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--card-color);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Top Action Bar */
+        .action-bar {
+            max-width: 800px;
+            margin: 0 auto 20px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid var(--accent);
+            border-radius: 50px;
+            color: var(--text-color);
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Resume Sections styling */
+        header {
+            text-align: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 24px;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .contact-info span {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--accent);
+            margin-top: 24px;
+            margin-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 6px;
+        }
+
+        p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        /* Items lists layout */
+        .item-row {
+            margin-bottom: 16px;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            font-weight: 600;
+            font-size: 1rem;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .item-subtitle {
+            font-size: 0.9rem;
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        ul {
+            list-style-type: square;
+            margin-left: 20px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        ul li {
+            margin-bottom: 6px;
+        }
+
+        /* Skills specific grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .skill-group {
+            margin-bottom: 8px;
+        }
+
+        .skill-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .skill-group span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* --------------------------------------------------
+           PRINTER FRIENDLY / ATS PARSER STYLING RULE OVERRIDES
+        -------------------------------------------------- */
+        @media print {
+            body {
+                background-color: #fff !important;
+                color: #000 !important;
+                padding: 0 !important;
+            }
+
+            .action-bar {
+                display: none !important; /* Hide PDF download buttons */
+            }
+
+            .resume-container {
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                background: transparent !important;
+                max-width: 100% !important;
+            }
+
+            h1 {
+                color: #000 !important;
+                font-size: 2.2rem !important;
+            }
+
+            .contact-info, p, ul, .item-subtitle, span {
+                color: #333 !important;
+            }
+
+            .section-title {
+                color: #000 !important;
+                border-bottom: 1.5px solid #000 !important;
+            }
+
+            .item-header {
+                color: #000 !important;
+            }
+
+            .skill-group label {
+                color: #000 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Printable top actions bar -->
+    <div class="action-bar">
+        <a href="index.html" class="action-btn">
+            ← Return to Portfolio
+        </a>
+        <button onclick="window.print()" class="action-btn">
+            Print / Save as PDF
+        </button>
+    </div>
+
+    <!-- ATS & Recruiter Centered Visual Document -->
+    <div class="resume-container">
+        <header>
+            <h1>Aaravsinh Rathod</h1>
+            <div class="contact-info">
+                <span>📍 Ahmedabad, Gujarat</span>
+                <span>📞 +91 9106800472</span>
+                <span>✉️ <a href="mailto:aaravrathod168@gmail.com" style="color: inherit; text-decoration: none;">aaravrathod168@gmail.com</a></span>
+                <span>🔗 <a href="https://linkedin.com/in/aarav-amarsinh-rathod-743504351" target="_blank" style="color: inherit; text-decoration: none;">linkedin.com/in/aarav-amarsinh-rathod-743504351</a></span>
+            </div>
+        </header>
+
+        <section>
+            <div class="section-title">Profile Summary</div>
+            <p>
+                Motivated Computer Engineering student with a strong foundation in technical concepts and a passion for Creative Design. Proficient in leveraging Generative AI tools and Canva to create high-impact user interfaces, social media templates, and digital assets. Proven ability to apply engineering logic to digital branding and project management, as demonstrated through live client work. Seeking an entry-level creative or technical role to deliver smart, optimized, and modern visual solutions for progressive brands.
+            </p>
+        </section>
+
+        <section>
+            <div class="section-title">Education</div>
+            
+            <div class="item-row">
+                <div class="item-header">
+                    <span>Bachelor of Technology in Computer Engineering</span>
+                    <span>2023 - 2027 (Expected)</span>
+                </div>
+                <div class="item-subtitle">Gandhinagar University</div>
+                <p>Acquiring academic knowledge in data structures, algorithms, databases, and software engineering. Applying analytical logic to front-end wireframing layouts.</p>
+            </div>
+
+            <div class="item-row">
+                <div class="item-header">
+                    <span>Class XII (Science)</span>
+                    <span>2023</span>
+                </div>
+                <div class="item-subtitle">Super English School, Ranip</div>
+                <p>Grade: 48.86%</p>
+            </div>
+
+            <div class="item-row">
+                <div class="item-header">
+                    <span>Class X</span>
+                    <span>2021</span>
+                </div>
+                <div class="item-subtitle">Super English School, Ranip</div>
+                <p>Grade: 83.23%</p>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-title">Skills Overview</div>
+            <div class="skills-grid">
+                <div class="skill-group">
+                    <label>Technical & AI Skills</label>
+                    <span>Generative AI, Prompt Engineering, Prompt Architectures, Digital Branding, Visual Design</span>
+                </div>
+                <div class="skill-group">
+                    <label>Web Design & UI/UX</label>
+                    <span>Web User Interface (UI) Design, Wireframing, Prototyping, Responsive Layout Design, Typography Hierarchy</span>
+                </div>
+                <div class="skill-group">
+                    <label>AI Dev & Tech Familiarity</label>
+                    <span>AI-Driven Code Assembly, Generative Component Integration, HTML5 Structural Layouts, Tailwind CSS Frameworks</span>
+                </div>
+                <div class="skill-group">
+                    <label>Soft Skills</label>
+                    <span>Analytical Problem Solving, Social Media Management, Fast Learner, Highly Adaptable, Client Communication</span>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-title">Projects</div>
+
+            <div class="item-row">
+                <div class="item-header">
+                    <span><a href="https://claude.ai/public/artifacts/c6a62127-124c-4302-a00c-dd80ea4cb727" target="_blank" style="color: inherit; text-decoration: none;">Cross-Border E-Commerce Platform UI/UX Project ↗</a></span>
+                    <span>2024</span>
+                </div>
+                <div class="item-subtitle">Interactive Layout Portfolio Piece</div>
+                <ul>
+                    <li>Developed a dynamic, conversion-focused user interface (UI) layout specifically engineered for global supply chain and trading businesses.</li>
+                    <li>Created interactive components and wireframes highlighting key business operations like product shipping, global sourcing, and client lead capture.</li>
+                    <li>Maintained clean brand aesthetics, professional typography, and strict design guidelines matching AAA text accessibility standards.</li>
+                </ul>
+            </div>
+
+            <div class="item-row">
+                <div class="item-header">
+                    <span><a href="https://claude.ai/public/artifacts/75d2ed8e-c1bb-47fa-aedf-8e92c1630164" target="_blank" style="color: inherit; text-decoration: none;">AI Prompt Engineering Benchmark Simulator ↗</a></span>
+                    <span>2024</span>
+                </div>
+                <div class="item-subtitle">Technologies: HTML5, Tailwind CSS, Vanilla JS, Prompt Systems</div>
+                <ul>
+                    <li>Comparative UI Architecture: Developed a responsive 3-page split-screen web application specifically designed to visually benchmark the output quality of standard user prompts versus optimized prompt engineering.</li>
+                    <li>Multi-Domain Simulation: Engineered dual-pane visual layouts for three live use cases (Global Trade Portal, Premium Branding, and Live Analytics Data), demonstrating how structured prompt frameworks solve creative limitations.</li>
+                    <li>Interactive Design Systems: Implemented fluid frontend transitions and animations to showcase the direct impact of precise instructions and constraints on Generative AI outputs.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-title">Professional Experience</div>
+
+            <div class="item-row">
+                <div class="item-header">
+                    <span>Freelance UI/UX & Digital Brand Designer</span>
+                    <span>2023 - Present</span>
+                </div>
+                <div class="item-subtitle">Remote Client Engagements</div>
+                <ul>
+                    <li>Collaborated with businesses to establish unified visual brand standards and responsive visual templates.</li>
+                    <li>Designed modern digital assets and templates using Canva, boosting client social media engagement by 35%.</li>
+                    <li>Utilized Generative AI tools to synthetically construct distinct graphical components, reducing project times.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-title">Spoken Languages</div>
+            <p><strong>English</strong> (Professional Working Proficiency), <strong>Gujarati</strong> (Native or Bilingual Proficiency), <strong>Hindi</strong> (Fluent/Professional Proficiency)</p>
+        </section>
+    </div>
+
+</body>
+</html>
