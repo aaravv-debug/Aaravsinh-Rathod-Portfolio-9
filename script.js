@@ -169,20 +169,20 @@ function initScrollSpy() {
 ========================================= */
 const CASE_STUDIES = {
     ecommerce: {
-        title: "Cross-Border E-Commerce Platform UI/UX",
+        title: "NEXPORT — Global Trade & Export-Import Agency Platform",
         category: "Fintech & Global Supply Chain",
-        timeline: "2023 — 2024 (Client Project)",
-        role: "Lead UI/UX Designer & Wireframe Architect",
-        liveUrl: "https://claude.ai/public/artifacts/c6a62127-124c-4302-a00c-dd80ea4cb727",
+        timeline: "2023 — 2024 (Production Design & Build)",
+        role: "Lead UI/UX Designer & Frontend Architect",
+        liveUrl: "nexport-agency.html#cta",
         overview: "An enterprise-grade cross-border trading interface designed for international freight forwarders, bulk suppliers, and trade brokers. Solved complex information density through modular layout cards, multi-currency conversion, and verified checkout routing.",
         challenge: "Global logistics buyers were experiencing high cognitive fatigue due to cluttered tabular data and opaque checkout fees across different jurisdictions.",
         solution: [
-            "Constructed a 12-column responsive layout system that effortlessly adapts from brokerage widescreen displays to handheld field tablets.",
+            "Constructed a responsive layout system that effortlessly adapts from brokerage widescreen displays to handheld field tablets.",
             "Designed an interactive shipping corridor calculator with real-time currency conversion across 142 currencies.",
             "Standardized accessible typography and WCAG AAA compliant text-contrast scales for high-contrast logistics environments.",
             "Achieved a +41.8% conversion uplift during user prototype testing sessions."
         ],
-        stack: ["Figma", "Canva", "Responsive Wireframes", "Information Architecture", "HTML5 & Tailwind"]
+        stack: ["Figma", "HTML5 & Modern CSS", "Responsive Architecture", "Supply Chain Systems", "Conversion Funnels"]
     },
     simulator: {
         title: "Bright Dental Clinic — Modern Patient Care Web Platform",

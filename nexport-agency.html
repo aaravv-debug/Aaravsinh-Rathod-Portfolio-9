@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXPORT — Global Trade Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --deep: #0d1f3c;
+    --gold: #c8963e;
+    --gold-light: #e8b86d;
+    --steel: #2a4a7f;
+    --fog: #8a9bb5;
+    --white: #f4f1ea;
+    --cream: #ede8df;
+    --text: #c8cdd8;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.3;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 60px;
+    background: linear-gradient(to bottom, rgba(10,22,40,0.95), transparent);
+    backdrop-filter: blur(2px);
+  }
+
+  .logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 6px;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .logo span { color: var(--gold); }
+
+  nav ul {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+
+  nav ul a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--fog);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  nav ul a:hover { color: var(--gold); }
+
+  .nav-cta {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold) !important;
+    border: 1px solid rgba(200,150,62,0.4);
+    padding: 8px 20px;
+    border-radius: 2px;
+    transition: all 0.3s !important;
+  }
+
+  .nav-cta:hover {
+    background: var(--gold) !important;
+    color: var(--navy) !important;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 60px 80px;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 40%, rgba(42,74,127,0.25) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 50% at 20% 80%, rgba(200,150,62,0.08) 0%, transparent 60%),
+      linear-gradient(160deg, var(--navy) 0%, #0b1e3a 40%, #091520 100%);
+  }
+
+  /* Animated globe lines */
+  .globe-lines {
+    position: absolute;
+    right: -5%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 650px;
+    height: 650px;
+    opacity: 0.12;
+    animation: rotateSlow 40s linear infinite;
+  }
+
+  @keyframes rotateSlow {
+    from { transform: translateY(-50%) rotate(0deg); }
+    to   { transform: translateY(-50%) rotate(360deg); }
+  }
+
+  /* Floating route dots */
+  .route-dots {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .dot {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--gold);
+    animation: pulse 3s ease-in-out infinite;
+  }
+
+  .dot::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 1px solid rgba(200,150,62,0.3);
+    animation: ripple 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%,100% { opacity:0.4; transform: scale(1); }
+    50% { opacity:1; transform: scale(1.4); }
+  }
+
+  @keyframes ripple {
+    0% { transform: scale(1); opacity: 0.6; }
+    100% { transform: scale(3); opacity: 0; }
+  }
+
+  .d1 { top: 28%; left: 22%; animation-delay: 0s; }
+  .d2 { top: 42%; left: 55%; animation-delay: 0.8s; }
+  .d3 { top: 35%; left: 72%; animation-delay: 1.6s; }
+  .d4 { top: 60%; left: 38%; animation-delay: 2.2s; }
+  .d5 { top: 20%; left: 65%; animation-delay: 1.1s; }
+  .d6 { top: 70%; left: 68%; animation-delay: 0.4s; }
+
+  /* Connecting lines SVG */
+  .route-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0.15;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+    animation: fadeUp 1s ease 0.2s both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 7vw, 90px);
+    font-weight: 900;
+    line-height: 0.95;
+    color: var(--white);
+    margin-bottom: 24px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--fog);
+    max-width: 480px;
+    margin-bottom: 40px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .btn-primary {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    background: var(--gold);
+    color: var(--navy);
+    padding: 16px 32px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  }
+
+  .btn-primary:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+  }
+
+  .btn-ghost {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--fog);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: color 0.3s;
+  }
+
+  .btn-ghost:hover { color: var(--white); }
+
+  .btn-ghost svg { transition: transform 0.3s; }
+  .btn-ghost:hover svg { transform: translateX(4px); }
+
+  .hero-stats {
+    position: absolute;
+    right: 60px;
+    bottom: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    z-index: 2;
+    animation: fadeUp 1s ease 0.5s both;
+  }
+
+  .stat-item {
+    text-align: right;
+    border-right: 2px solid rgba(200,150,62,0.3);
+    padding-right: 20px;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .stat-num span { color: var(--gold); }
+
+  .stat-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--fog);
+    margin-top: 4px;
+  }
+
+  /* ── TICKER ── */
+  .ticker {
+    background: var(--gold);
+    padding: 12px 0;
+    overflow: hidden;
+    display: flex;
+  }
+
+  .ticker-track {
+    display: flex;
+    gap: 0;
+    animation: ticker 30s linear infinite;
+    white-space: nowrap;
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  .ticker-item {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--navy);
+    font-weight: 600;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .ticker-item::after {
+    content: '◆';
+    font-size: 6px;
+  }
+
+  /* ── SECTION COMMONS ── */
+  section { padding: 120px 60px; }
+
+  .section-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-tag::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 4.5vw, 58px);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  h2 em { font-style: italic; color: var(--gold); }
+
+  /* ── ABOUT ── */
+  #about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+  }
+
+  .about-visual {
+    position: relative;
+  }
+
+  .about-img-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/5;
+    background: linear-gradient(135deg, var(--deep) 0%, #0f2847 100%);
+    overflow: hidden;
+  }
+
+  .about-img-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(200,150,62,0.06) 39px, rgba(200,150,62,0.06) 40px),
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(200,150,62,0.06) 39px, rgba(200,150,62,0.06) 40px);
+  }
+
+  .about-img-wrap::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 60%;
+    background: linear-gradient(to top, rgba(200,150,62,0.08), transparent);
+  }
+
+  .about-ship {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 120px;
+    opacity: 0.15;
+    filter: grayscale(1);
+  }
+
+  .about-badge {
+    position: absolute;
+    bottom: -24px;
+    right: -24px;
+    width: 130px;
+    height: 130px;
+    background: var(--gold);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
+  }
+
+  .about-badge .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    font-weight: 900;
+    color: var(--navy);
+    line-height: 1;
+  }
+
+  .about-badge .lbl {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--navy);
+    opacity: 0.7;
+    text-align: center;
+    margin-top: 4px;
+  }
+
+  .about-border-top {
+    position: absolute;
+    top: -12px; left: -12px; right: -12px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .about-text p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--fog);
+    margin-bottom: 20px;
+  }
+
+  .about-features {
+    margin-top: 36px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .feat-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(200,150,62,0.1);
+    transition: border-color 0.3s, background 0.3s;
+  }
+
+  .feat-item:hover {
+    border-color: rgba(200,150,62,0.3);
+    background: rgba(200,150,62,0.04);
+  }
+
+  .feat-icon {
+    color: var(--gold);
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .feat-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .feat-desc {
+    font-size: 12px;
+    color: var(--fog);
+    line-height: 1.5;
+  }
+
+  /* ── SERVICES ── */
+  #services {
+    background: linear-gradient(180deg, transparent, rgba(13,31,60,0.5), transparent);
+  }
+
+  .services-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 60px;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: rgba(200,150,62,0.08);
+  }
+
+  .service-card {
+    background: var(--navy);
+    padding: 48px 36px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: background 0.4s;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s;
+  }
+
+  .service-card:hover { background: rgba(13,31,60,0.8); }
+  .service-card:hover::before { transform: scaleX(1); }
+
+  .service-card.featured {
+    background: linear-gradient(135deg, #0d2247 0%, #0a1e3a 100%);
+    border-top: 3px solid var(--gold);
+  }
+
+  .service-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 64px;
+    font-weight: 900;
+    color: rgba(200,150,62,0.08);
+    line-height: 1;
+    margin-bottom: -16px;
+    transition: color 0.4s;
+  }
+
+  .service-card:hover .service-num { color: rgba(200,150,62,0.15); }
+
+  .service-icon-wrap {
+    width: 52px;
+    height: 52px;
+    background: rgba(200,150,62,0.1);
+    border: 1px solid rgba(200,150,62,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 20px;
+    transition: background 0.3s;
+  }
+
+  .service-card:hover .service-icon-wrap { background: rgba(200,150,62,0.2); }
+
+  .service-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .service-desc {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--fog);
+    margin-bottom: 24px;
+  }
+
+  .service-link {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: gap 0.3s;
+  }
+
+  .service-link:hover { gap: 14px; }
+
+  /* ── NUMBERS BANNER ── */
+  #numbers {
+    padding: 80px 60px;
+    background: var(--gold);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+
+  .num-item {
+    padding: 20px 40px;
+    border-right: 1px solid rgba(10,22,40,0.2);
+    text-align: center;
+  }
+
+  .num-item:last-child { border-right: none; }
+
+  .num-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px;
+    font-weight: 900;
+    color: var(--navy);
+    line-height: 1;
+  }
+
+  .num-unit {
+    color: rgba(10,22,40,0.5);
+    font-size: 32px;
+  }
+
+  .num-lbl {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(10,22,40,0.6);
+    margin-top: 8px;
+  }
+
+  /* ── COMMODITIES ── */
+  #commodities { overflow: hidden; }
+
+  .comm-header {
+    margin-bottom: 60px;
+  }
+
+  .commodity-scroll {
+    display: flex;
+    gap: 20px;
+    animation: scrollLeft 25s linear infinite;
+    width: max-content;
+  }
+
+  @keyframes scrollLeft {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  .comm-card {
+    width: 260px;
+    flex-shrink: 0;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(200,150,62,0.1);
+    padding: 28px 24px;
+    transition: border-color 0.3s;
+  }
+
+  .comm-card:hover { border-color: rgba(200,150,62,0.35); }
+
+  .comm-emoji { font-size: 32px; margin-bottom: 14px; }
+
+  .comm-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  .comm-origin {
+    font-size: 12px;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .comm-bar-wrap {
+    height: 2px;
+    background: rgba(255,255,255,0.05);
+    margin-top: 14px;
+  }
+
+  .comm-bar {
+    height: 100%;
+    background: var(--gold);
+  }
+
+  /* ── PROCESS ── */
+  #process {
+    background: linear-gradient(135deg, rgba(13,31,60,0.4), transparent);
+  }
+
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    margin-top: 60px;
+    position: relative;
+  }
+
+  .process-grid::before {
+    content: '';
+    position: absolute;
+    top: 36px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), var(--gold), var(--gold), transparent);
+    opacity: 0.2;
+  }
+
+  .step {
+    padding: 0 24px;
+    text-align: center;
+  }
+
+  .step-circle {
+    width: 72px;
+    height: 72px;
+    border: 2px solid rgba(200,150,62,0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--gold);
+    margin: 0 auto 20px;
+    background: var(--navy);
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s;
+  }
+
+  .step:hover .step-circle {
+    border-color: var(--gold);
+    background: rgba(200,150,62,0.1);
+    transform: scale(1.1);
+  }
+
+  .step-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+
+  .step-desc {
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--fog);
+  }
+
+  /* ── TESTIMONIALS ── */
+  #testimonials { background: rgba(13,31,60,0.3); }
+
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 60px;
+  }
+
+  .testi-card {
+    padding: 36px 32px;
+    border: 1px solid rgba(200,150,62,0.1);
+    position: relative;
+    background: rgba(255,255,255,0.015);
+    transition: border-color 0.3s, transform 0.3s;
+  }
+
+  .testi-card:hover {
+    border-color: rgba(200,150,62,0.25);
+    transform: translateY(-4px);
+  }
+
+  .quote-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 80px;
+    color: rgba(200,150,62,0.12);
+    line-height: 0.6;
+    margin-bottom: 16px;
+    position: absolute;
+    top: 24px;
+    right: 24px;
+  }
+
+  .testi-text {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--fog);
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+
+  .testi-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .testi-avatar {
+    width: 42px;
+    height: 42px;
+    background: linear-gradient(135deg, var(--steel), var(--gold));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    color: var(--navy);
+    font-size: 16px;
+  }
+
+  .testi-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--white);
+  }
+
+  .testi-co {
+    font-size: 11px;
+    color: var(--gold);
+  }
+
+  /* ── CTA ── */
+  #cta {
+    text-align: center;
+    padding: 120px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 70% at 50% 50%, rgba(42,74,127,0.3), transparent),
+      radial-gradient(ellipse 40% 40% at 50% 50%, rgba(200,150,62,0.06), transparent);
+  }
+
+  #cta .section-tag { justify-content: center; }
+  #cta .section-tag::before { display: none; }
+
+  #cta h2 {
+    font-size: clamp(42px, 5.5vw, 72px);
+    max-width: 700px;
+    margin: 0 auto 20px;
+  }
+
+  #cta p {
+    font-size: 16px;
+    color: var(--fog);
+    max-width: 480px;
+    margin: 0 auto 48px;
+    line-height: 1.7;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    position: relative;
+  }
+
+  .btn-outline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(200,150,62,0.4);
+    padding: 16px 32px;
+    text-decoration: none;
+    transition: all 0.3s;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--gold);
+    background: rgba(200,150,62,0.08);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--deep);
+    border-top: 1px solid rgba(200,150,62,0.1);
+    padding: 60px;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 48px;
+  }
+
+  .footer-brand .logo { display: block; margin-bottom: 16px; }
+
+  .footer-brand p {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--fog);
+    margin-bottom: 24px;
+  }
+
+  .social-row {
+    display: flex;
+    gap: 12px;
+  }
+
+  .social-btn {
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(200,150,62,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--fog);
+    text-decoration: none;
+    font-size: 13px;
+    transition: all 0.3s;
+  }
+
+  .social-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .footer-col h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 10px; }
+
+  .footer-col ul a {
+    font-size: 13px;
+    color: var(--fog);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-col ul a:hover { color: var(--white); }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-bottom p {
+    font-size: 12px;
+    color: rgba(138,155,181,0.5);
+  }
+
+  .footer-bottom span { color: var(--gold); }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 20px 24px; }
+    nav ul { display: none; }
+    section { padding: 80px 24px; }
+    #hero { padding: 0 24px 60px; }
+    h1 { font-size: 48px; }
+    .hero-stats { display: none; }
+    #about { grid-template-columns: 1fr; gap: 48px; }
+    .services-grid { grid-template-columns: 1fr; }
+    #numbers { grid-template-columns: 1fr 1fr; }
+    .process-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .process-grid::before { display: none; }
+    .testi-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .services-header { flex-direction: column; align-items: flex-start; gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">NEX<span>PORT</span></a>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#commodities">Commodities</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#cta" class="nav-cta">Get a Quote</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+
+  <!-- Globe wireframe -->
+  <svg class="globe-lines" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="200" cy="200" r="190" stroke="#c8963e" stroke-width="1"/>
+    <ellipse cx="200" cy="200" rx="100" ry="190" stroke="#c8963e" stroke-width="0.8"/>
+    <ellipse cx="200" cy="200" rx="40" ry="190" stroke="#c8963e" stroke-width="0.6"/>
+    <ellipse cx="200" cy="200" rx="190" ry="60" stroke="#c8963e" stroke-width="0.8"/>
+    <ellipse cx="200" cy="200" rx="190" ry="110" stroke="#c8963e" stroke-width="0.6"/>
+    <ellipse cx="200" cy="200" rx="190" ry="160" stroke="#c8963e" stroke-width="0.5"/>
+    <line x1="10" y1="200" x2="390" y2="200" stroke="#c8963e" stroke-width="0.5"/>
+    <line x1="200" y1="10" x2="200" y2="390" stroke="#c8963e" stroke-width="0.5"/>
+  </svg>
+
+  <!-- Route dots -->
+  <div class="route-dots">
+    <div class="dot d1"></div>
+    <div class="dot d2"></div>
+    <div class="dot d3"></div>
+    <div class="dot d4"></div>
+    <div class="dot d5"></div>
+    <div class="dot d6"></div>
+  </div>
+
+  <!-- SVG connecting lines -->
+  <svg class="route-svg" viewBox="0 0 1440 900" preserveAspectRatio="none">
+    <path d="M 317 252 Q 500 200 793 378" stroke="#c8963e" stroke-width="1" fill="none" stroke-dasharray="4 6"/>
+    <path d="M 793 378 Q 900 320 1036 180" stroke="#c8963e" stroke-width="1" fill="none" stroke-dasharray="4 6"/>
+    <path d="M 317 252 Q 400 400 547 540" stroke="#c8963e" stroke-width="1" fill="none" stroke-dasharray="4 6"/>
+    <path d="M 547 540 Q 720 480 980 630" stroke="#c8963e" stroke-width="1" fill="none" stroke-dasharray="4 6"/>
+    <circle cx="317" cy="252" r="4" fill="#c8963e" opacity="0.8"/>
+    <circle cx="793" cy="378" r="4" fill="#c8963e" opacity="0.8"/>
+    <circle cx="1036" cy="180" r="4" fill="#c8963e" opacity="0.8"/>
+    <circle cx="547" cy="540" r="4" fill="#c8963e" opacity="0.8"/>
+    <circle cx="980" cy="630" r="4" fill="#c8963e" opacity="0.8"/>
+  </svg>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Trusted Global Trade Partner Since 1998</p>
+    <h1>Moving Goods<br>Across <em>Every</em><br>Horizon</h1>
+    <p class="hero-sub">End-to-end export & import solutions that connect your business to 140+ markets worldwide. Compliance, logistics, and customs — handled.</p>
+    <div class="hero-actions">
+      <a href="#services" class="btn-primary">Explore Services</a>
+      <a href="#process" class="btn-ghost">
+        Our Process
+        <svg width="18" height="12" viewBox="0 0 18 12" fill="none">
+          <path d="M1 6H17M12 1l5 5-5 5" stroke="#8a9bb5" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">140<span>+</span></div>
+      <div class="stat-label">Countries Served</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">$2.8<span>B</span></div>
+      <div class="stat-label">Trade Volume 2024</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">26<span>yr</span></div>
+      <div class="stat-label">Industry Expertise</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item">Sea Freight</span>
+    <span class="ticker-item">Air Cargo</span>
+    <span class="ticker-item">Customs Clearance</span>
+    <span class="ticker-item">Trade Compliance</span>
+    <span class="ticker-item">Door-to-Door Delivery</span>
+    <span class="ticker-item">Project Cargo</span>
+    <span class="ticker-item">Warehousing</span>
+    <span class="ticker-item">Letter of Credit</span>
+    <span class="ticker-item">ISO 9001 Certified</span>
+    <span class="ticker-item">Sea Freight</span>
+    <span class="ticker-item">Air Cargo</span>
+    <span class="ticker-item">Customs Clearance</span>
+    <span class="ticker-item">Trade Compliance</span>
+    <span class="ticker-item">Door-to-Door Delivery</span>
+    <span class="ticker-item">Project Cargo</span>
+    <span class="ticker-item">Warehousing</span>
+    <span class="ticker-item">Letter of Credit</span>
+    <span class="ticker-item">ISO 9001 Certified</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about" class="reveal">
+  <div class="about-visual">
+    <div class="about-border-top"></div>
+    <div class="about-img-wrap">
+      <div class="about-ship">🚢</div>
+    </div>
+    <div class="about-badge">
+      <div class="num">26</div>
+      <div class="lbl">Years of<br>Excellence</div>
+    </div>
+  </div>
+  <div class="about-text">
+    <div class="section-tag">Who We Are</div>
+    <h2>Your Bridge to<br><em>Global Markets</em></h2>
+    <p>NEXPORT has been a cornerstone of international trade since 1998. From a single port operation in Mumbai, we have grown into a full-spectrum global trade agency with offices across Asia, Europe, the Middle East, and the Americas.</p>
+    <p>We don't just move cargo — we move businesses forward. Our team of 600+ certified trade specialists ensures every shipment arrives on time, in compliance, and at the most competitive cost.</p>
+    <div class="about-features">
+      <div class="feat-item">
+        <div class="feat-icon">⚓</div>
+        <div>
+          <div class="feat-title">Sea Freight</div>
+          <div class="feat-desc">FCL & LCL on all major shipping lanes</div>
+        </div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-icon">✈️</div>
+        <div>
+          <div class="feat-title">Air Cargo</div>
+          <div class="feat-desc">Express & general air freight worldwide</div>
+        </div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-icon">📋</div>
+        <div>
+          <div class="feat-title">Compliance</div>
+          <div class="feat-desc">Customs docs & regulatory support</div>
+        </div>
+      </div>
+      <div class="feat-item">
+        <div class="feat-icon">🏭</div>
+        <div>
+          <div class="feat-title">Warehousing</div>
+          <div class="feat-desc">Bonded & free-trade zone storage</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-header reveal">
+    <div>
+      <div class="section-tag">What We Offer</div>
+      <h2>Comprehensive Trade<br><em>Solutions</em></h2>
+    </div>
+    <a href="#cta" class="btn-primary">All Services →</a>
+  </div>
+
+  <div class="services-grid reveal">
+    <div class="service-card featured">
+      <div class="service-num">01</div>
+      <div class="service-icon-wrap">⚓</div>
+      <div class="service-name">Ocean Freight</div>
+      <div class="service-desc">Full container and less-than-container shipping across 200+ ports. Real-time cargo tracking, reliable schedules, and competitive rates.</div>
+      <a href="#" class="service-link">Explore →</a>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-icon-wrap">✈️</div>
+      <div class="service-name">Air Freight</div>
+      <div class="service-desc">Time-critical shipments handled with precision. Door-to-door express and deferred cargo to 400+ global airports.</div>
+      <a href="#" class="service-link">Explore →</a>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-icon-wrap">📋</div>
+      <div class="service-name">Customs & Compliance</div>
+      <div class="service-desc">Licensed customs brokers and trade compliance specialists ensure smooth clearance in every jurisdiction.</div>
+      <a href="#" class="service-link">Explore →</a>
+    </div>
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <div class="service-icon-wrap">🏗️</div>
+      <div class="service-name">Project Cargo</div>
+      <div class="service-desc">Oversized, heavy-lift, and out-of-gauge cargo specialists for energy, infrastructure, and industrial sectors.</div>
+      <a href="#" class="service-link">Explore →</a>
+    </div>
+    <div class="service-card">
+      <div class="service-num">05</div>
+      <div class="service-icon-wrap">🏭</div>
+      <div class="service-name">Warehousing & 3PL</div>
+      <div class="service-desc">2.4M sq ft of bonded and commercial storage across 18 strategic locations with full WMS integration.</div>
+      <a href="#" class="service-link">Explore →</a>
+    </div>
+    <div class="service-card">
+      <div class="service-num">06</div>
+      <div class="service-icon-wrap">💱</div>
+      <div class="service-name">Trade Finance</div>
+      <div class="service-desc">Letters of credit, documentary collections, export credit insurance, and working capital solutions.</div>
+      <a href="#" class="service-link">Explore →</a>
+    </div>
+  </div>
+</section>
+
+<!-- NUMBERS -->
+<div id="numbers" class="reveal">
+  <div class="num-item">
+    <div class="num-val">140<span class="num-unit">+</span></div>
+    <div class="num-lbl">Countries Served</div>
+  </div>
+  <div class="num-item">
+    <div class="num-val">52K<span class="num-unit">+</span></div>
+    <div class="num-lbl">Shipments Per Year</div>
+  </div>
+  <div class="num-item">
+    <div class="num-val">98<span class="num-unit">%</span></div>
+    <div class="num-lbl">On-Time Delivery</div>
+  </div>
+  <div class="num-item">
+    <div class="num-val">600<span class="num-unit">+</span></div>
+    <div class="num-lbl">Trade Specialists</div>
+  </div>
+</div>
+
+<!-- COMMODITIES -->
+<section id="commodities">
+  <div class="comm-header reveal">
+    <div class="section-tag">What We Trade</div>
+    <h2>Commodities & <em>Industries</em></h2>
+  </div>
+
+  <div style="overflow:hidden; margin: 0 -60px; padding: 0 60px;">
+    <div class="commodity-scroll">
+      <!-- set 1 -->
+      <div class="comm-card">
+        <div class="comm-emoji">🌾</div>
+        <div class="comm-name">Agri Products</div>
+        <div class="comm-origin">India → Middle East, EU</div>
+        <div class="comm-bar-wrap"><div class="comm-bar" style="width:88%"></div></div>
+      </div>
+      <div class="comm-card">
+        <div class="comm-emoji">🔩</div>
+        <div class="comm-name">Industrial Steel</div>
+        <div class="comm-origin">China → Americas</div>
+        <div class="comm-bar-wrap"><div class="comm-bar" style="width:72%"></div></div>
+      </div>
+      <div class="comm-card">
+        <div class="comm-emoji">💊</div>
+        <div class="comm-name">Pharmaceuticals</div>
+        <div class="comm-origin">India → Africa, CIS</div>
+        <div class="comm-bar-wrap"><div class="comm-bar" style="width:65%"></div></div>
+      </div>
+      <div class="comm-card">
+        <div class="comm-emoji">🧴</div>
+        <div class="comm-name">Chemicals</div>
+        <div class="comm-origin">Germany → Asia</div>
+        <div class="comm-bar-wrap"><div class="comm-bar" style="width:55%"></div></div>
+      </div>
+      <div class="comm-card">
+        <div class="comm-emoji">👗</div>
+        <div class="comm-name">Garments & Textiles</div>
+        <div class="comm-origin">Bangladesh → EU, USA</div>
+        <div class="comm-bar-wrap"><div class="comm-bar" style="width:80%"></div></div>
+      </div>
+      <div class="comm-card">
+        <div class="comm-emoji">🛢️</div>
+        <div class="comm-name">Petroleum Products</div>
+        <div class="comm-origin">Gulf → Global</div>
+        <div class="comm-bar-wrap"><div class="comm-bar" style="width:90%"></div></div>
+      </div>
+      <div class="comm-card">
+        <div class="comm-emoji">🖥️</div>
+        <div class="comm-name">Electronics</div>
+        <div class="comm-origin">Taiwan → Worldwide</div>
+        <div class="comm-bar-wrap"><div class="comm-bar" style="width:76%"></div></div>
+      </div>
+      <!-- duplicate for seamless loop -->
+      <div class="comm-card">
+        <div class="comm-emoji">🌾</div>
+        <div class="comm-name">Agri Products</div>
+        <div class="comm-origin">India → Middle East, EU</div>
+        <div class="comm-bar-wrap"><div class="comm-bar" style="width:88%"></div></div>
+      </div>
+      <div class="comm-card">
+        <div class="comm-emoji">🔩</div>
+        <div class="comm-name">Industrial Steel</div>
+        <div class="comm-origin">China → Americas</div>
+        <div class="comm-bar-wrap"><div class="comm-bar" style="width:72%"></div></div>
+      </div>
+      <div class="comm-card">
+        <div class="comm-emoji">💊</div>
+        <div class="comm-name">Pharmaceuticals</div>
+        <div class="comm-origin">India → Africa, CIS</div>
+        <div class="comm-bar-wrap"><div class="comm-bar" style="width:65%"></div></div>
+      </div>
+      <div class="comm-card">
+        <div class="comm-emoji">🧴</div>
+        <div class="comm-name">Chemicals</div>
+        <div class="comm-origin">Germany → Asia</div>
+        <div class="comm-bar-wrap"><div class="comm-bar" style="width:55%"></div></div>
+      </div>
+      <div class="comm-card">
+        <div class="comm-emoji">👗</div>
+        <div class="comm-name">Garments & Textiles</div>
+        <div class="comm-origin">Bangladesh → EU, USA</div>
+        <div class="comm-bar-wrap"><div class="comm-bar" style="width:80%"></div></div>
+      </div>
+      <div class="comm-card">
+        <div class="comm-emoji">🛢️</div>
+        <div class="comm-name">Petroleum Products</div>
+        <div class="comm-origin">Gulf → Global</div>
+        <div class="comm-bar-wrap"><div class="comm-bar" style="width:90%"></div></div>
+      </div>
+      <div class="comm-card">
+        <div class="comm-emoji">🖥️</div>
+        <div class="comm-name">Electronics</div>
+        <div class="comm-origin">Taiwan → Worldwide</div>
+        <div class="comm-bar-wrap"><div class="comm-bar" style="width:76%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="reveal" style="text-align:center; max-width:560px; margin:0 auto;">
+    <div class="section-tag" style="justify-content:center;">
+      <span>How It Works</span>
+    </div>
+    <h2>A Seamless <em>5-Step</em> Journey</h2>
+  </div>
+
+  <div class="process-grid reveal">
+    <div class="step">
+      <div class="step-circle">1</div>
+      <div class="step-title">Inquiry</div>
+      <div class="step-desc">Submit your cargo details and trade lane. We respond within 4 business hours.</div>
+    </div>
+    <div class="step">
+      <div class="step-circle">2</div>
+      <div class="step-title">Quotation</div>
+      <div class="step-desc">Receive a transparent, all-inclusive quote — no hidden fees, no surprises.</div>
+    </div>
+    <div class="step">
+      <div class="step-circle">3</div>
+      <div class="step-title">Documentation</div>
+      <div class="step-desc">Our compliance team prepares all export/import docs and customs filings.</div>
+    </div>
+    <div class="step">
+      <div class="step-circle">4</div>
+      <div class="step-title">Shipment</div>
+      <div class="step-desc">Cargo is booked, loaded, and dispatched. Track in real-time on our portal.</div>
+    </div>
+    <div class="step">
+      <div class="step-circle">5</div>
+      <div class="step-title">Delivery</div>
+      <div class="step-desc">Final-mile delivery with proof of delivery and post-shipment reporting.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="reveal" style="text-align:center; max-width:500px; margin:0 auto;">
+    <div class="section-tag" style="justify-content:center;"><span>Client Voices</span></div>
+    <h2>Trusted by <em>Industry Leaders</em></h2>
+  </div>
+
+  <div class="testi-grid reveal">
+    <div class="testi-card">
+      <div class="quote-mark">"</div>
+      <div class="testi-text">NEXPORT transformed our supply chain. What used to take 12 weeks now takes 7. Their documentation team is peerless — zero customs delays in three years of partnership.</div>
+      <div class="testi-author">
+        <div class="testi-avatar">AR</div>
+        <div>
+          <div class="testi-name">Arjun Rawal</div>
+          <div class="testi-co">VP Logistics, Tata Industries</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="quote-mark">"</div>
+      <div class="testi-text">We export pharma products to 38 countries. NEXPORT handles every market's compliance seamlessly. Their real-time tracking portal is a game changer for our operations team.</div>
+      <div class="testi-author">
+        <div class="testi-avatar">SM</div>
+        <div>
+          <div class="testi-name">Shreya Mehta</div>
+          <div class="testi-co">Head of Export, Sun Pharma</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="quote-mark">"</div>
+      <div class="testi-text">The project cargo team moved 14 industrial turbines from Germany to Gujarat in record time. Complex logistics executed with military precision. Highly recommend.</div>
+      <div class="testi-author">
+        <div class="testi-avatar">KP</div>
+        <div>
+          <div class="testi-name">Klaus Petermann</div>
+          <div class="testi-co">Director, Siemens Energy India</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="section-tag">Start Today</div>
+  <h2>Ready to Trade <em>Globally?</em></h2>
+  <p>Get a free consultation and competitive quote within 24 hours. No obligations, no commitments — just expert trade advice.</p>
+  <div class="cta-buttons">
+    <a href="#" class="btn-primary">Request a Free Quote</a>
+    <a href="#" class="btn-outline">Schedule a Call</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="logo">NEX<span>PORT</span></a>
+      <p>Connecting businesses to global markets since 1998. Reliable, compliant, and cost-effective trade solutions across 140+ countries.</p>
+      <div class="social-row">
+        <a href="#" class="social-btn">in</a>
+        <a href="#" class="social-btn">𝕏</a>
+        <a href="#" class="social-btn">f</a>
+        <a href="#" class="social-btn">▶</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#">Ocean Freight</a></li>
+        <li><a href="#">Air Cargo</a></li>
+        <li><a href="#">Customs Clearance</a></li>
+        <li><a href="#">Project Cargo</a></li>
+        <li><a href="#">Warehousing</a></li>
+        <li><a href="#">Trade Finance</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Regions</h4>
+      <ul>
+        <li><a href="#">Asia Pacific</a></li>
+        <li><a href="#">Middle East</a></li>
+        <li><a href="#">Europe</a></li>
+        <li><a href="#">Americas</a></li>
+        <li><a href="#">Africa</a></li>
+        <li><a href="#">CIS Countries</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="#">Mumbai HQ</a></li>
+        <li><a href="#">+91 22 4000 1234</a></li>
+        <li><a href="#">trade@nexport.com</a></li>
+        <li><a href="#">Track Shipment</a></li>
+        <li><a href="#">Get Quote</a></li>
+        <li><a href="#">Partner Portal</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 <span>NEXPORT Global Trade Solutions</span>. All rights reserved.</p>
+    <p>Privacy Policy · Terms of Use · Cookie Policy</p>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 100);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Counter animation for numbers
+  const numVals = document.querySelectorAll('.num-val');
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const text = el.textContent;
+        const num = parseFloat(text);
+        if (!isNaN(num) && !el.dataset.animated) {
+          el.dataset.animated = true;
+          let start = 0;
+          const end = num;
+          const duration = 1500;
+          const step = (timestamp) => {
+            if (!start) start = timestamp;
+            const progress = Math.min((timestamp - start) / duration, 1);
+            const val = progress * end;
+            el.innerHTML = el.innerHTML.replace(/[\d.]+/, val < 10 ? val.toFixed(1) : Math.floor(val));
+            if (progress < 1) requestAnimationFrame(step);
+          };
+          requestAnimationFrame(step);
+        }
+        counterObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  numVals.forEach(el => counterObserver.observe(el));
+
+  // Smooth nav highlight
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav ul a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === `#${current}` ? 'var(--gold)' : '';
+    });
+  });
+</script>
+</body>
+</html>
