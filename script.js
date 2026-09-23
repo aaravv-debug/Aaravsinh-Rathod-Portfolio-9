@@ -355,25 +355,47 @@ function initContactForm() {
         e.preventDefault();
         const name = document.getElementById('name')?.value.trim();
         const email = document.getElementById('email')?.value.trim();
+        const subject = document.getElementById('subject')?.value.trim();
+        const message = document.getElementById('message')?.value.trim();
 
-        if (!name || !email) {
+        if (!name || !email || !message) {
             showToast('Please fill out all required fields.');
             return;
         }
 
+        // WhatsApp destination: +91 9106800472
+        const phoneNumber = '919106800472';
+
+        // Pre-composed WhatsApp message formatted cleanly
+        let waText = `*New Portfolio Inquiry for Aaravsinh Rathod* 🚀\n\n`;
+        waText += `👤 *Name:* ${name}\n`;
+        waText += `✉️ *Email:* ${email}\n`;
+        if (subject) {
+            waText += `🎯 *Subject:* ${subject}\n`;
+        }
+        waText += `\n💬 *Message:*\n${message}\n\n`;
+        waText += `🌐 _Sent via Portfolio Inquiry Form_`;
+
+        const waUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(waText)}`;
+
         const prevHtml = submitBtn.innerHTML;
         submitBtn.disabled = true;
         submitBtn.innerHTML = `
-            <span>Sending Message...</span>
+            <span>Opening WhatsApp...</span>
+            <span class="material-symbols-outlined text-sm">chat</span>
         `;
+
+        showToast(`Opening WhatsApp to send your inquiry, ${name}...`);
+
+        // Open WhatsApp in a new tab
+        window.open(waUrl, '_blank', 'noopener,noreferrer');
 
         setTimeout(() => {
             submitBtn.disabled = false;
             submitBtn.innerHTML = `
                 <span class="material-symbols-outlined text-sm">check_circle</span>
-                <span>Message Dispatched!</span>
+                <span>Inquiry Sent to WhatsApp!</span>
             `;
-            showToast(`Thank you, ${name}! Your transmission has been dispatched to Aaravsinh.`);
             form.reset();
 
             setTimeout(() => {
