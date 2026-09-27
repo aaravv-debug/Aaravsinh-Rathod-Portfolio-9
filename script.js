@@ -18,6 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initHeroInteractions();
     initEducationPipeAnimation();
     initAboutMeSection();
+    initNumberCounters();
+    initFaqAccordion();
+    initCardSpotlight();
 });
 
 /* =========================================
@@ -866,5 +869,124 @@ function initIntroPreloader() {
         window.dispatchEvent(new Event('preloaderComplete'));
     });
 }
+
+/* =========================================
+   15. Realistic Rolling Number Counters
+========================================= */
+function initNumberCounters() {
+    const counterElements = document.querySelectorAll('.stat-counter[data-target]');
+    if (!counterElements.length) return;
+
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                obs.unobserve(el);
+                animateCounter(el);
+            }
+        });
+    }, {
+        threshold: 0.2,
+        rootMargin: '0px 0px -40px 0px'
+    });
+
+    counterElements.forEach(el => observer.observe(el));
+
+    function animateCounter(el) {
+        const target = parseFloat(el.getAttribute('data-target'));
+        const decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+        const duration = 1800; // ms
+        const startTime = performance.now();
+        const startVal = 0;
+
+        function update(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            // Ultra-smooth easeOutExpo / easeOutCubic curve
+            const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+            const current = startVal + (target - startVal) * ease;
+
+            el.textContent = current.toFixed(decimals);
+
+            if (progress < 1) {
+                requestAnimationFrame(update);
+            } else {
+                el.textContent = target.toFixed(decimals);
+                el.classList.add('counter-pulse');
+                setTimeout(() => el.classList.remove('counter-pulse'), 500);
+            }
+        }
+
+        requestAnimationFrame(update);
+    }
+}
+
+/* =========================================
+   16. Client & Recruiter FAQ Accordion
+========================================= */
+function initFaqAccordion() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    if (!faqItems.length) return;
+
+    faqItems.forEach(item => {
+        const questionBtn = item.querySelector('.faq-question');
+        if (!questionBtn) return;
+
+        questionBtn.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+
+            // Close other accordion items for clean single-focus UX
+            faqItems.forEach(otherItem => {
+                if (otherItem !== item && otherItem.classList.contains('active')) {
+                    otherItem.classList.remove('active');
+                    const otherBtn = otherItem.querySelector('.faq-question');
+                    if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            // Toggle current item
+            if (isActive) {
+                item.classList.remove('active');
+                questionBtn.setAttribute('aria-expanded', 'false');
+            } else {
+                item.classList.add('active');
+                questionBtn.setAttribute('aria-expanded', 'true');
+            }
+        });
+
+        // Keyboard accessibility (Enter or Space)
+        questionBtn.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                questionBtn.click();
+            }
+        });
+    });
+}
+
+/* =========================================
+   17. Specular Card Spotlight Glow
+========================================= */
+function initCardSpotlight() {
+    const spotlightCards = document.querySelectorAll('.stat-matrix-cell, .faq-item');
+    if (!spotlightCards.length) return;
+
+    spotlightCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.removeProperty('--mouse-x');
+            card.style.removeProperty('--mouse-y');
+        });
+    });
+}
+
 
 
