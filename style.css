@@ -5,36 +5,36 @@
 
 /* --- 1. CSS Custom Properties / Tokens --- */
 :root {
-    /* Color Palette (Clean Editorial Light Mode Default) */
-    --bg-main: #F7F7F9;
-    --bg-surface: #FFFFFF;
-    --bg-cream: #F1F1F5;
-    --bg-card: #FFFFFF;
+    /* Color Palette (Option B: Split-Tone Sand Dune & Cyprus System) */
+    --bg-main: #F0EDE5;          /* Signature Sand Dune Canvas */
+    --bg-surface: #F9F7F2;       /* Warm Soft Ivory for Elevated Cards */
+    --bg-cream: #E6E1D4;         /* Rich Tactile Sand Dune Accent */
+    --bg-card: #FFFFFF;          /* Pure Crisp Card Surface */
     
-    --text-headline: #111111;
-    --text-body: #4A4A52;
-    --text-muted: #737380;
-    --text-faint: #A6A6B3;
+    --text-headline: #002B28;    /* Deep Cyprus Obsidian */
+    --text-body: #2B3D3B;        /* High-Contrast Editorial Spruce */
+    --text-muted: #5F7370;       /* Muted Sage Slate */
+    --text-faint: #8E9F9D;       /* Hairline Spruce */
 
-    /* Signature Behance Royal Blue */
-    --royal-blue: #2563EB;
-    --royal-blue-hover: #1D4ED8;
-    --royal-blue-light: #EFF6FF;
-    --royal-blue-subtle: rgba(37, 99, 235, 0.08);
+    /* Signature Cyprus Accent (Replaces standard blue) */
+    --royal-blue: #004643;       /* Cyprus (#004643) */
+    --royal-blue-hover: #003330;
+    --royal-blue-light: #E0EBE9;
+    --royal-blue-subtle: rgba(0, 70, 67, 0.08);
 
     /* Accents */
-    --accent-emerald: #10B981;
+    --accent-emerald: #0D7A73;
     --accent-terracotta: #D2691E;
 
     /* Borders & Hairlines */
-    --border-subtle: rgba(17, 17, 17, 0.08);
-    --border-med: rgba(17, 17, 17, 0.15);
-    --border-strong: #111111;
+    --border-subtle: rgba(0, 70, 67, 0.12);
+    --border-med: rgba(0, 70, 67, 0.22);
+    --border-strong: #004643;
 
     /* Soft Luxury Shadows */
-    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.04);
-    --shadow-card: 0 12px 36px rgba(0, 0, 0, 0.06);
-    --shadow-hover: 0 20px 48px rgba(0, 0, 0, 0.10);
+    --shadow-soft: 0 4px 20px rgba(0, 70, 67, 0.05);
+    --shadow-card: 0 12px 36px rgba(0, 70, 67, 0.08);
+    --shadow-hover: 0 20px 48px rgba(0, 70, 67, 0.14);
 
     /* Typography */
     --font-display: 'Syne', sans-serif;
@@ -55,25 +55,30 @@
     --transition-fast: 0.2s ease;
 }
 
-/* Dark Mode Overrides */
+/* Dark Mode Overrides (Deep Nocturnal Cyprus & Warm Sand Typography) */
 body.theme-dark {
-    --bg-main: #0B0B0E;
-    --bg-surface: #141419;
-    --bg-cream: #1A1A22;
-    --bg-card: #181820;
+    --bg-main: #061716;          /* Deep Nocturnal Cyprus */
+    --bg-surface: #0B2221;       /* Midnight Cyprus Surface */
+    --bg-cream: #12302E;         /* Deep Spruce Accent */
+    --bg-card: #0D2625;          /* Card Elevated Cyprus */
 
-    --text-headline: #F7F7F9;
-    --text-body: #B5B5C3;
-    --text-muted: #8E8E9E;
-    --text-faint: #5C5C6B;
+    --text-headline: #F0EDE5;    /* Sand Dune Headline */
+    --text-body: #D4CEBF;        /* Warm Parchment Body */
+    --text-muted: #9BAEA9;       /* Soft Mint-Grey Muted */
+    --text-faint: #5D7570;       /* Muted Spruce Faint */
 
-    --border-subtle: rgba(255, 255, 255, 0.08);
-    --border-med: rgba(255, 255, 255, 0.16);
-    --border-strong: #F7F7F9;
+    --royal-blue: #12A59C;       /* Luminous Cyprus Mint in Dark Mode */
+    --royal-blue-hover: #15BAAF;
+    --royal-blue-light: rgba(18, 165, 156, 0.15);
+    --royal-blue-subtle: rgba(18, 165, 156, 0.10);
 
-    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.3);
-    --shadow-card: 0 12px 36px rgba(0, 0, 0, 0.4);
-    --shadow-hover: 0 20px 48px rgba(37, 99, 235, 0.15);
+    --border-subtle: rgba(240, 237, 229, 0.10);
+    --border-med: rgba(240, 237, 229, 0.18);
+    --border-strong: #F0EDE5;
+
+    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.4);
+    --shadow-card: 0 12px 36px rgba(0, 0, 0, 0.55);
+    --shadow-hover: 0 20px 48px rgba(0, 70, 67, 0.35);
 }
 
 /* --- 2. Base & Reset --- */
@@ -385,12 +390,12 @@ body.theme-dark .editorial-header {
     justify-content: flex-start;
     align-items: center;
     overflow: hidden;
-    background-color: #F4F4F6;
+    background-color: var(--bg-main);
     transition: background-color var(--transition-smooth);
 }
 
 body.theme-dark .hero-editorial-section {
-    background-color: #0F0F13;
+    background-color: var(--bg-main);
 }
 
 .hero-container {
@@ -4173,5 +4178,162 @@ body.theme-dark .footer-thank-you-watermark {
         align-items: flex-start;
         gap: 0.4rem;
     }
+}
+
+/* ==========================================================================
+   OPTION B: SPLIT-TONE SIGNATURE CYPRUS CONTRAST SECTION
+   ========================================================================== */
+#contact.split-tone-cyprus {
+    background-color: #004643;
+    color: #F0EDE5;
+    position: relative;
+    border-top: 1px solid rgba(240, 237, 229, 0.16);
+}
+
+#contact.split-tone-cyprus .banner-watermark {
+    color: rgba(240, 237, 229, 0.05);
+}
+
+#contact.split-tone-cyprus .banner-title {
+    color: #F0EDE5;
+}
+
+#contact.split-tone-cyprus .form-header-badge {
+    color: #5CD2C6;
+}
+
+#contact.split-tone-cyprus .form-main-heading,
+#contact.split-tone-cyprus .contact-direct-title {
+    color: #F0EDE5;
+}
+
+#contact.split-tone-cyprus .form-sub-intro,
+#contact.split-tone-cyprus .contact-direct-desc {
+    color: #D4CEBF;
+}
+
+#contact.split-tone-cyprus .contact-channel-card {
+    background: #003634;
+    border: 1px solid rgba(240, 237, 229, 0.14);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+#contact.split-tone-cyprus .cc-label {
+    color: #9BAEA9;
+}
+
+#contact.split-tone-cyprus .cc-value {
+    color: #F0EDE5;
+}
+
+#contact.split-tone-cyprus .btn-copy {
+    background: #004643;
+    color: #F0EDE5;
+    border: 1px solid rgba(240, 237, 229, 0.16);
+}
+
+#contact.split-tone-cyprus .btn-copy:hover {
+    background: #F0EDE5;
+    color: #004643;
+}
+
+#contact.split-tone-cyprus .social-link-pill {
+    background: #003634;
+    border: 1px solid rgba(240, 237, 229, 0.14);
+    color: #F0EDE5;
+}
+
+#contact.split-tone-cyprus .slp-title {
+    color: #F0EDE5;
+}
+
+#contact.split-tone-cyprus .slp-sub {
+    color: #9BAEA9;
+}
+
+#contact.split-tone-cyprus .slp-arrow-wrap {
+    background: #004643;
+    color: #F0EDE5;
+    border-color: rgba(240, 237, 229, 0.16);
+}
+
+#contact.split-tone-cyprus .form-input-wrap label {
+    color: #F0EDE5;
+}
+
+#contact.split-tone-cyprus .form-input-wrap input,
+#contact.split-tone-cyprus .form-input-wrap textarea {
+    background: #003634;
+    border: 1px solid rgba(240, 237, 229, 0.18);
+    color: #F0EDE5;
+}
+
+#contact.split-tone-cyprus .form-input-wrap input:focus,
+#contact.split-tone-cyprus .form-input-wrap textarea:focus {
+    border-color: #5CD2C6;
+    box-shadow: 0 0 0 3px rgba(92, 210, 198, 0.2);
+}
+
+#contact.split-tone-cyprus .btn-pill-submit {
+    background: #F0EDE5;
+    color: #004643;
+    font-weight: 800;
+    border: none;
+}
+
+#contact.split-tone-cyprus .btn-pill-submit:hover {
+    background: #FFFFFF;
+    color: #003330;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* Editorial Footer in Split-Tone */
+.split-tone-footer {
+    background-color: #003330;
+    color: #F0EDE5;
+    border-top: 1px solid rgba(240, 237, 229, 0.1);
+}
+
+.split-tone-footer .footer-thank-you-watermark {
+    color: rgba(240, 237, 229, 0.04);
+}
+
+.split-tone-footer .footer-logo {
+    color: #F0EDE5;
+}
+
+.split-tone-footer .footer-tagline {
+    color: #9BAEA9;
+}
+
+.split-tone-footer .fn-title {
+    color: #5CD2C6;
+}
+
+.split-tone-footer .footer-nav-col a {
+    color: #D4CEBF;
+}
+
+.split-tone-footer .footer-nav-col a:hover {
+    color: #F0EDE5;
+}
+
+.split-tone-footer .footer-nav-col span {
+    color: #9BAEA9;
+}
+
+.split-tone-footer .footer-copyright-bar {
+    color: #7A918C;
+}
+
+.split-tone-footer .btn-back-top {
+    background: #004643;
+    color: #F0EDE5;
+    border-color: rgba(240, 237, 229, 0.18);
+}
+
+.split-tone-footer .btn-back-top:hover {
+    background: #F0EDE5;
+    color: #004643;
 }
 
