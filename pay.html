@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Payment Receipt - EditCraftStudio</title>
+  <title>Invoice - EditCraftStudio</title>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -18,21 +18,6 @@
       justify-content: center;
       padding: 24px 16px;
       overflow-x: hidden;
-      cursor: pointer;
-    }
-
-    /* SOUND STATUS BADGE */
-    .sound-badge {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      color: #94a3b8;
-      background: rgba(30, 41, 59, 0.7);
-      padding: 6px 14px;
-      border-radius: 20px;
-      margin-bottom: 16px;
-      border: 1px solid #334155;
     }
 
     /* TOP PRINTER DISPENSER */
@@ -63,7 +48,7 @@
       box-shadow: 0 20px 40px rgba(0,0,0,0.5);
       position: relative;
       transform-origin: top center;
-      animation: printOut 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: printOut 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       clip-path: polygon(
         0% 0%, 100% 0%, 100% calc(100% - 10px),
         95% 100%, 90% calc(100% - 10px), 85% 100%, 80% calc(100% - 10px),
@@ -80,7 +65,6 @@
       100% { transform: translateY(0) scaleY(1); opacity: 1; }
     }
 
-    /* HEADER */
     .receipt-header {
       text-align: center;
       border-bottom: 2px dashed #cbd5e1;
@@ -100,7 +84,6 @@
       margin-top: 2px;
     }
 
-    /* BODY */
     .receipt-body {
       font-size: 12px;
       line-height: 1.8;
@@ -109,6 +92,7 @@
     .row {
       display: flex;
       justify-content: space-between;
+      align-items: center;
     }
     .row.bold {
       font-weight: 700;
@@ -137,6 +121,29 @@
       color: #0f172a;
     }
 
+    /* STATUS BADGE */
+    .status-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      transition: all 0.4s ease;
+    }
+    .status-pending {
+      background: #fef3c7;
+      color: #d97706;
+      border: 1px solid #fde68a;
+    }
+    .status-paid {
+      background: #dcfce7;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+      box-shadow: 0 0 12px rgba(22, 163, 74, 0.3);
+    }
+
     /* RUBBER INK PAID STAMP */
     .stamp {
       position: absolute;
@@ -152,8 +159,13 @@
       border-radius: 8px;
       letter-spacing: 3px;
       opacity: 0;
-      animation: stampDrop 0.5s 1.2s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
       pointer-events: none;
+      display: none;
+    }
+
+    .stamp.animate-stamp {
+      display: block;
+      animation: stampDrop 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
     }
 
     @keyframes stampDrop {
@@ -161,7 +173,6 @@
       100% { opacity: 0.92; transform: translate(-50%, -50%) rotate(-14deg) scale(1); }
     }
 
-    /* BARCODE */
     .barcode {
       text-align: center;
       margin-top: 18px;
@@ -171,7 +182,7 @@
       height: 38px;
     }
 
-    /* ACTION BUTTONS */
+    /* PAYMENT BUTTONS */
     .pay-actions {
       margin-top: 22px;
       width: 300px;
@@ -202,18 +213,44 @@
     .btn-phonepe { background: #5f259f; }
     .btn-paytm { background: #00b9f5; }
     .btn-upi { background: #16a34a; }
-    .btn-preview {
-      background: #334155;
-      font-size: 13px;
-      padding: 11px;
+
+    /* SUCCESS VERIFIED CARD (Shown when paid) */
+    .paid-card {
+      display: none;
+      background: #14532d;
+      border: 2px solid #22c55e;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      color: #fff;
+      margin-top: 20px;
+      width: 300px;
+      box-shadow: 0 8px 25px rgba(34, 197, 94, 0.35);
+      animation: popIn 0.5s ease;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .live-pulse {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #f59e0b;
+      margin-right: 5px;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(0.9); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.5; }
+      100% { transform: scale(0.9); opacity: 1; }
     }
   </style>
 </head>
-<body onclick="playAudioSequence()">
-
-  <div class="sound-badge">
-    <span>🔊</span> Tap anywhere to hear sound effects!
-  </div>
+<body>
 
   <!-- PRINTER DISPENSER SLOT -->
   <div class="printer-slot"></div>
@@ -232,7 +269,12 @@
       <div class="receipt-body">
         <div class="row"><span>Invoice No:</span><span class="bold" id="displayInv">INV-1002</span></div>
         <div class="row"><span>Merchant UPI:</span><span id="displayUpi">saiaaravv@okicici</span></div>
-        <div class="row"><span>Status:</span><span style="color:#16a34a; font-weight:bold;">Verified</span></div>
+        <div class="row" style="margin-top: 4px;">
+          <span>Status:</span>
+          <span id="statusBox" class="status-badge status-pending">
+            <span class="live-pulse" id="statusPulse"></span><span id="statusText">PENDING</span>
+          </span>
+        </div>
 
         <div class="divider"></div>
 
@@ -262,32 +304,38 @@
           <rect width="4" height="25" x="53" fill="#1e293b"/>
           <rect width="2" height="25" x="60" fill="#1e293b"/>
           <rect width="3" height="25" x="69" fill="#1e293b"/>
-          <rect width="2" height="25" x="75" fill="#1e293b"/>
+          <rect width="2" height="75" x="75" fill="#1e293b"/>
           <rect width="4" height="25" x="80" fill="#1e293b"/>
-          <rect width="1" height="25" x="87" fill="#1e293b"/>
-          <rect width="2" height="25" x="91" fill="#1e293b"/>
         </svg>
         <p style="font-size: 10px; color: #94a3b8; margin-top: 4px;">THANK YOU FOR YOUR BUSINESS</p>
       </div>
     </div>
   </div>
 
-  <!-- PAYMENT BUTTONS -->
-  <div class="pay-actions" onclick="event.stopPropagation()">
+  <!-- PAYMENT BUTTONS (Visible when PENDING) -->
+  <div class="pay-actions" id="paymentButtons">
     <a id="btnGpay" href="#" class="btn btn-gpay">🔵 Pay with Google Pay</a>
     <a id="btnPhonepe" href="#" class="btn btn-phonepe">🟣 Pay with PhonePe</a>
     <a id="btnPaytm" href="#" class="btn btn-paytm">🔷 Pay with Paytm</a>
     <a id="btnUniversal" href="#" class="btn btn-upi">⚡ Pay with Any UPI App</a>
-    <button onclick="restartAnimation()" class="btn btn-preview">🔊 Replay Animation with Sound</button>
+  </div>
+
+  <!-- SUCCESS BOX (Appears automatically when PAID) -->
+  <div class="paid-card" id="paidCard">
+    <div style="font-size: 28px; margin-bottom: 6px;">🎉</div>
+    <div style="font-size: 16px; font-weight: 800; margin-bottom: 4px;">Payment Successfully Verified!</div>
+    <div style="font-size: 12px; opacity: 0.9;">We have received your payment. Production has started!</div>
   </div>
 
   <script>
-    // URL Parameters
     const params = new URLSearchParams(window.location.search);
     const upiId = params.get('pa') || 'saiaaravv@okicici';
     const brand = params.get('pn') || 'EditCraftStudio';
     const amount = params.get('am') || '10';
     const invNo = params.get('inv') || 'INV-1002';
+
+    // Google Apps Script Live Status Checker URL
+    const CHECK_API_URL = "https://script.google.com/macros/s/AKfycbxsp0oPERHikfPLN2uYqzukr92P7uJ0gbZjW0WwbN0M7QkH2sTdi_L9Ogol2tU722fa/exec";
 
     document.getElementById('displayBrand').textContent = brand;
     document.getElementById('displayInv').textContent = invNo;
@@ -296,7 +344,7 @@
     document.getElementById('displayServiceAmt').textContent = '₹' + amount;
     document.getElementById('displayDate').textContent = new Date().toLocaleDateString('en-IN', {
       day: '2-digit', month: 'short', year: 'numeric'
-    }) + ' • Verified';
+    });
 
     const query = `pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(brand)}&am=${encodeURIComponent(amount)}&cu=INR&tn=${encodeURIComponent(invNo)}`;
     document.getElementById('btnGpay').href = `intent://pay?${query}#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end`;
@@ -305,156 +353,107 @@
     document.getElementById('btnUniversal').href = `upi://pay?${query}`;
 
     // ==========================================
-    // REALISTIC POS SOUND SYNTHESIZER (Web Audio API)
+    // SOUND EFFECTS
     // ==========================================
     let audioCtx = null;
-
     function getAudioContext() {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
-      }
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
       return audioCtx;
     }
 
-    // 1. Thermal Printer Whirring & Gear Sound
-    function playPrinterSound() {
-      try {
-        const ctx = getAudioContext();
-        const bufferSize = ctx.sampleRate * 1.2;
-        const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-        const output = noiseBuffer.getChannelData(0);
-        
-        for (let i = 0; i < bufferSize; i++) {
-          output[i] = (Math.random() * 2 - 1) * 0.12;
-        }
-
-        const whiteNoise = ctx.createBufferSource();
-        whiteNoise.buffer = noiseBuffer;
-
-        const filter = ctx.createBiquadFilter();
-        filter.type = 'bandpass';
-        filter.frequency.setValueAtTime(1400, ctx.currentTime);
-        filter.Q.setValueAtTime(3.5, ctx.currentTime);
-
-        const gainNode = ctx.createGain();
-        gainNode.gain.setValueAtTime(0.01, ctx.currentTime);
-        gainNode.gain.linearRampToValueAtTime(0.35, ctx.currentTime + 0.1);
-        gainNode.gain.setValueAtTime(0.35, ctx.currentTime + 0.9);
-        gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.2);
-
-        whiteNoise.connect(filter);
-        filter.connect(gainNode);
-        gainNode.connect(ctx.destination);
-
-        whiteNoise.start(ctx.currentTime);
-        whiteNoise.stop(ctx.currentTime + 1.2);
-      } catch (e) {
-        console.log(e);
-      }
-    }
-
-    // 2. Heavy Rubber Ink Stamp Thud Sound
     function playStampThud() {
       try {
         const ctx = getAudioContext();
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
-
         osc.type = 'triangle';
         osc.frequency.setValueAtTime(120, ctx.currentTime);
         osc.frequency.exponentialRampToValueAtTime(30, ctx.currentTime + 0.12);
-
         gain.gain.setValueAtTime(0.8, ctx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
-
         osc.connect(gain);
         gain.connect(ctx.destination);
-
         osc.start(ctx.currentTime);
         osc.stop(ctx.currentTime + 0.15);
       } catch (e) {}
     }
 
-    // 3. Cash Register / Success Chime Sound
     function playCashChime() {
       try {
         const ctx = getAudioContext();
-        const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6 (Major Arpeggio)
-        
+        const notes = [523.25, 659.25, 783.99, 1046.50];
         notes.forEach((freq, idx) => {
           const osc = ctx.createOscillator();
           const gain = ctx.createGain();
-
           osc.type = 'sine';
           osc.frequency.setValueAtTime(freq, ctx.currentTime + idx * 0.08);
-
           gain.gain.setValueAtTime(0, ctx.currentTime + idx * 0.08);
           gain.gain.linearRampToValueAtTime(0.3, ctx.currentTime + idx * 0.08 + 0.02);
           gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + idx * 0.08 + 0.45);
-
           osc.connect(gain);
           gain.connect(ctx.destination);
-
           osc.start(ctx.currentTime + idx * 0.08);
           osc.stop(ctx.currentTime + idx * 0.08 + 0.5);
         });
       } catch (e) {}
     }
 
-    // Confetti
     function triggerConfetti() {
-      confetti({
-        particleCount: 90,
-        spread: 75,
-        origin: { y: 0.6 }
-      });
+      confetti({ particleCount: 100, spread: 80, origin: { y: 0.6 } });
     }
 
-    let hasPlayed = false;
+    // ==========================================
+    // REAL-TIME AUTO UPDATE: TRANSITION TO PAID!
+    // ==========================================
+    let isAlreadyPaid = false;
 
-    function playAudioSequence() {
-      if (hasPlayed) return;
-      hasPlayed = true;
+    function markAsPaidLive() {
+      if (isAlreadyPaid) return;
+      isAlreadyPaid = true;
 
-      // 1. Play Printer sound immediately
-      playPrinterSound();
+      // 1. Turn Status Box Green!
+      const statusBox = document.getElementById('statusBox');
+      statusBox.className = 'status-badge status-paid';
+      document.getElementById('statusPulse').style.display = 'none';
+      document.getElementById('statusText').textContent = '✅ PAID & VERIFIED';
 
-      // 2. Play Stamp sound at 1.2s
-      setTimeout(() => {
-        playStampThud();
-      }, 1200);
+      // 2. Animate Rubber Stamp
+      const stamp = document.getElementById('paidStamp');
+      stamp.classList.add('animate-stamp');
 
-      // 3. Play Cash Register Chime & Confetti at 1.4s
+      // 3. Play Stamp Sound & Chime
+      playStampThud();
       setTimeout(() => {
         playCashChime();
         triggerConfetti();
-      }, 1400);
+      }, 300);
+
+      // 4. Hide Payment Buttons & Show Paid Card
+      document.getElementById('paymentButtons').style.display = 'none';
+      document.getElementById('paidCard').style.display = 'block';
     }
 
-    function restartAnimation() {
-      hasPlayed = false;
-      const receipt = document.getElementById('receiptPaper');
-      const stamp = document.getElementById('paidStamp');
-      
-      receipt.style.animation = 'none';
-      stamp.style.animation = 'none';
-      
-      void receipt.offsetWidth;
-      void stamp.offsetWidth;
-      
-      receipt.style.animation = 'printOut 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards';
-      stamp.style.animation = 'stampDrop 0.5s 1.2s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards';
-      
-      playAudioSequence();
+    // POLL THE GOOGLE SHEET EVERY 3 SECONDS
+    async function checkPaymentStatus() {
+      if (isAlreadyPaid) return;
+
+      try {
+        const response = await fetch(`${CHECK_API_URL}?check=${encodeURIComponent(invNo)}`);
+        const data = await response.json();
+
+        if (data.status === 'PAID') {
+          markAsPaidLive();
+        }
+      } catch (err) {
+        // Silent fail on network blip
+      }
     }
 
-    // Attempt auto-play on load (or ready for first tap)
-    window.addEventListener('load', () => {
-      setTimeout(playAudioSequence, 100);
-    });
+    // Start polling every 3 seconds
+    setInterval(checkPaymentStatus, 3000);
+    // Initial check on load
+    checkPaymentStatus();
   </script>
 </body>
 </html>
