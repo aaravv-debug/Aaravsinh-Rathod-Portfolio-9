@@ -335,7 +335,7 @@
     const invNo = params.get('inv') || 'INV-1002';
 
     // Google Apps Script Live Status Checker URL
-    const CHECK_API_URL = "https://script.google.com/macros/s/AKfycbxsp0oPERHikfPLN2uYqzukr92P7uJ0gbZjW0WwbN0M7QkH2sTdi_L9Ogol2tU722fa/exec";
+    const CHECK_API_URL = "https://script.google.com/macros/s/AKfycbw7Lyw0v32rmUeS82zGhT2wnUyZ_CNeEXGERfsdcdSbSqdQ8CmR2gWXMUERzwrLD3Wm/exec";
 
     document.getElementById('displayBrand').textContent = brand;
     document.getElementById('displayInv').textContent = invNo;
@@ -434,24 +434,24 @@
       document.getElementById('paidCard').style.display = 'block';
     }
 
-    // POLL THE GOOGLE SHEET EVERY 3 SECONDS
+    // POLL THE GOOGLE SHEET EVERY 2.5 SECONDS WITH CACHE BUSTING
     async function checkPaymentStatus() {
       if (isAlreadyPaid) return;
 
       try {
-        const response = await fetch(`${CHECK_API_URL}?check=${encodeURIComponent(invNo)}`);
+        const response = await fetch(`${CHECK_API_URL}?check=${encodeURIComponent(invNo)}&_t=${Date.now()}`);
         const data = await response.json();
 
         if (data.status === 'PAID') {
           markAsPaidLive();
         }
       } catch (err) {
-        // Silent fail on network blip
+        console.log("Check status error:", err);
       }
     }
 
-    // Start polling every 3 seconds
-    setInterval(checkPaymentStatus, 3000);
+    // Poll every 2.5 seconds
+    setInterval(checkPaymentStatus, 2500);
     // Initial check on load
     checkPaymentStatus();
   </script>
