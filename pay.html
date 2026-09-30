@@ -18,6 +18,21 @@
       justify-content: center;
       padding: 24px 16px;
       overflow-x: hidden;
+      cursor: pointer;
+    }
+
+    /* SOUND STATUS BADGE */
+    .sound-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: #94a3b8;
+      background: rgba(30, 41, 59, 0.7);
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      border: 1px solid #334155;
     }
 
     /* TOP PRINTER DISPENSER */
@@ -189,19 +204,23 @@
     .btn-upi { background: #16a34a; }
     .btn-preview {
       background: #334155;
-      font-size: 12px;
-      padding: 10px;
+      font-size: 13px;
+      padding: 11px;
     }
   </style>
 </head>
-<body>
+<body onclick="playAudioSequence()">
+
+  <div class="sound-badge">
+    <span>🔊</span> Tap anywhere to hear sound effects!
+  </div>
 
   <!-- PRINTER DISPENSER SLOT -->
   <div class="printer-slot"></div>
 
   <!-- RECEIPT WRAPPER -->
   <div class="receipt-wrapper">
-    <div class="receipt">
+    <div class="receipt" id="receiptPaper">
       <div class="stamp" id="paidStamp">PAID</div>
 
       <div class="receipt-header">
@@ -254,23 +273,22 @@
   </div>
 
   <!-- PAYMENT BUTTONS -->
-  <div class="pay-actions">
+  <div class="pay-actions" onclick="event.stopPropagation()">
     <a id="btnGpay" href="#" class="btn btn-gpay">🔵 Pay with Google Pay</a>
     <a id="btnPhonepe" href="#" class="btn btn-phonepe">🟣 Pay with PhonePe</a>
     <a id="btnPaytm" href="#" class="btn btn-paytm">🔷 Pay with Paytm</a>
     <a id="btnUniversal" href="#" class="btn btn-upi">⚡ Pay with Any UPI App</a>
-    <button onclick="triggerConfetti()" class="btn btn-preview">🎉 Replay Celebration</button>
+    <button onclick="restartAnimation()" class="btn btn-preview">🔊 Replay Animation with Sound</button>
   </div>
 
   <script>
-    // Read URL Parameters
+    // URL Parameters
     const params = new URLSearchParams(window.location.search);
     const upiId = params.get('pa') || 'saiaaravv@okicici';
     const brand = params.get('pn') || 'EditCraftStudio';
     const amount = params.get('am') || '10';
     const invNo = params.get('inv') || 'INV-1002';
 
-    // Populate Dynamic Content
     document.getElementById('displayBrand').textContent = brand;
     document.getElementById('displayInv').textContent = invNo;
     document.getElementById('displayUpi').textContent = upiId;
@@ -280,25 +298,163 @@
       day: '2-digit', month: 'short', year: 'numeric'
     }) + ' • Verified';
 
-    // Build UPI Links & Android Direct Intents
     const query = `pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(brand)}&am=${encodeURIComponent(amount)}&cu=INR&tn=${encodeURIComponent(invNo)}`;
-    
     document.getElementById('btnGpay').href = `intent://pay?${query}#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end`;
     document.getElementById('btnPhonepe').href = `intent://pay?${query}#Intent;scheme=upi;package=com.phonepe.app;end`;
     document.getElementById('btnPaytm').href = `intent://pay?${query}#Intent;scheme=upi;package=net.one97.paytm;end`;
     document.getElementById('btnUniversal').href = `upi://pay?${query}`;
 
-    // Confetti Animation
+    // ==========================================
+    // REALISTIC POS SOUND SYNTHESIZER (Web Audio API)
+    // ==========================================
+    let audioCtx = null;
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    // 1. Thermal Printer Whirring & Gear Sound
+    function playPrinterSound() {
+      try {
+        const ctx = getAudioContext();
+        const bufferSize = ctx.sampleRate * 1.2;
+        const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const output = noiseBuffer.getChannelData(0);
+        
+        for (let i = 0; i < bufferSize; i++) {
+          output[i] = (Math.random() * 2 - 1) * 0.12;
+        }
+
+        const whiteNoise = ctx.createBufferSource();
+        whiteNoise.buffer = noiseBuffer;
+
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.setValueAtTime(1400, ctx.currentTime);
+        filter.Q.setValueAtTime(3.5, ctx.currentTime);
+
+        const gainNode = ctx.createGain();
+        gainNode.gain.setValueAtTime(0.01, ctx.currentTime);
+        gainNode.gain.linearRampToValueAtTime(0.35, ctx.currentTime + 0.1);
+        gainNode.gain.setValueAtTime(0.35, ctx.currentTime + 0.9);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.2);
+
+        whiteNoise.connect(filter);
+        filter.connect(gainNode);
+        gainNode.connect(ctx.destination);
+
+        whiteNoise.start(ctx.currentTime);
+        whiteNoise.stop(ctx.currentTime + 1.2);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
+    // 2. Heavy Rubber Ink Stamp Thud Sound
+    function playStampThud() {
+      try {
+        const ctx = getAudioContext();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(120, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(30, ctx.currentTime + 0.12);
+
+        gain.gain.setValueAtTime(0.8, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.15);
+      } catch (e) {}
+    }
+
+    // 3. Cash Register / Success Chime Sound
+    function playCashChime() {
+      try {
+        const ctx = getAudioContext();
+        const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6 (Major Arpeggio)
+        
+        notes.forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, ctx.currentTime + idx * 0.08);
+
+          gain.gain.setValueAtTime(0, ctx.currentTime + idx * 0.08);
+          gain.gain.linearRampToValueAtTime(0.3, ctx.currentTime + idx * 0.08 + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + idx * 0.08 + 0.45);
+
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+
+          osc.start(ctx.currentTime + idx * 0.08);
+          osc.stop(ctx.currentTime + idx * 0.08 + 0.5);
+        });
+      } catch (e) {}
+    }
+
+    // Confetti
     function triggerConfetti() {
       confetti({
-        particleCount: 80,
-        spread: 70,
+        particleCount: 90,
+        spread: 75,
         origin: { y: 0.6 }
       });
     }
 
-    // Trigger confetti right after receipt rolls out
-    setTimeout(triggerConfetti, 1400);
+    let hasPlayed = false;
+
+    function playAudioSequence() {
+      if (hasPlayed) return;
+      hasPlayed = true;
+
+      // 1. Play Printer sound immediately
+      playPrinterSound();
+
+      // 2. Play Stamp sound at 1.2s
+      setTimeout(() => {
+        playStampThud();
+      }, 1200);
+
+      // 3. Play Cash Register Chime & Confetti at 1.4s
+      setTimeout(() => {
+        playCashChime();
+        triggerConfetti();
+      }, 1400);
+    }
+
+    function restartAnimation() {
+      hasPlayed = false;
+      const receipt = document.getElementById('receiptPaper');
+      const stamp = document.getElementById('paidStamp');
+      
+      receipt.style.animation = 'none';
+      stamp.style.animation = 'none';
+      
+      void receipt.offsetWidth;
+      void stamp.offsetWidth;
+      
+      receipt.style.animation = 'printOut 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+      stamp.style.animation = 'stampDrop 0.5s 1.2s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards';
+      
+      playAudioSequence();
+    }
+
+    // Attempt auto-play on load (or ready for first tap)
+    window.addEventListener('load', () => {
+      setTimeout(playAudioSequence, 100);
+    });
   </script>
 </body>
 </html>
