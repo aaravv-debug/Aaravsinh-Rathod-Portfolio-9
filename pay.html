@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Invoice - EditCraftStudio</title>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -248,6 +249,27 @@
       50% { transform: scale(1.4); opacity: 0.5; }
       100% { transform: scale(0.9); opacity: 1; }
     }
+
+    @media print {
+      body {
+        background: #ffffff !important;
+        padding: 0 !important;
+        color: #000000 !important;
+      }
+      .printer-slot,
+      .pay-actions,
+      .paid-card {
+        display: none !important;
+      }
+      .receipt-wrapper {
+        width: 100% !important;
+        margin: 0 auto !important;
+      }
+      .receipt {
+        box-shadow: none !important;
+        border: 1px solid #e2e8f0 !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -322,9 +344,21 @@
 
   <!-- SUCCESS BOX (Appears automatically when PAID) -->
   <div class="paid-card" id="paidCard">
-    <div style="font-size: 28px; margin-bottom: 6px;">🎉</div>
-    <div style="font-size: 16px; font-weight: 800; margin-bottom: 4px;">Payment Successfully Verified!</div>
-    <div style="font-size: 12px; opacity: 0.9;">We have received your payment. Production has started!</div>
+    <div style="font-size: 32px; margin-bottom: 6px;">🎉</div>
+    <div style="font-size: 17px; font-weight: 800; margin-bottom: 4px;">Payment Successfully Verified!</div>
+    <div style="font-size: 13px; opacity: 0.9; margin-bottom: 14px;">We have received your payment. Production has started!</div>
+
+    <div id="pdfDownloadStatus" style="font-size: 12px; background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.15); padding: 8px 12px; border-radius: 8px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+      <span id="pdfSpinner" class="live-pulse" style="background:#22c55e;"></span>
+      <span id="pdfStatusText">Downloading your Official Invoice PDF...</span>
+    </div>
+
+    <button id="btnManualPdf" onclick="downloadInvoicePDF()" class="btn" style="background: #ffffff; color: #14532d; font-weight: 800; margin-bottom: 8px; box-shadow: 0 4px 14px rgba(0,0,0,0.25);">
+      📥 Download Invoice PDF Again
+    </button>
+    <button onclick="window.print()" class="btn" style="background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: #fff; font-size: 13px; padding: 10px;">
+      🖨️ Print / Save Receipt
+    </button>
   </div>
 
   <script>
@@ -432,6 +466,39 @@
       // 4. Hide Payment Buttons & Show Paid Card
       document.getElementById('paymentButtons').style.display = 'none';
       document.getElementById('paidCard').style.display = 'block';
+
+      // 5. Automatically Generate and Download Official PDF Invoice after 1.5 seconds
+      setTimeout(() => {
+        downloadInvoicePDF();
+      }, 1500);
+    }
+
+    // ==========================================
+    // AUTOMATIC PDF INVOICE GENERATOR & DOWNLOAD
+    // ==========================================
+    function downloadInvoicePDF() {
+      const element = document.getElementById('receiptTicket');
+      const statusText = document.getElementById('pdfStatusText');
+      const spinner = document.getElementById('pdfSpinner');
+
+      if (statusText) statusText.textContent = "Generating official PDF...";
+      if (spinner) spinner.style.display = "inline-block";
+
+      const opt = {
+        margin: [10, 10, 10, 10],
+        filename: `Invoice-${invNo}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 3, useCORS: true, letterRendering: true },
+        jsPDF: { unit: 'mm', format: 'a5', orientation: 'portrait' }
+      };
+
+      html2pdf().set(opt).from(element).save().then(() => {
+        if (statusText) statusText.textContent = "✅ Official Invoice PDF Downloaded!";
+        if (spinner) spinner.style.display = "none";
+      }).catch((err) => {
+        console.log("PDF download error:", err);
+        if (statusText) statusText.textContent = "Tap button below to download PDF";
+      });
     }
 
     // POLL THE GOOGLE SHEET EVERY 2.5 SECONDS WITH CACHE BUSTING
