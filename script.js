@@ -219,6 +219,22 @@ const CASE_STUDIES = {
             "Reduced turnaround times for weekly graphic asset creation by 40%."
         ],
         stack: ["Canva Pro", "Generative AI Image Synthesis", "Typography Pairing", "Social Media Strategy"]
+    },
+    automation: {
+        title: "Autonomous AI Business Automations & Zero-Cost Lead Acquisition",
+        category: "AI Automations, Fintech & Autonomous Workflows",
+        timeline: "2025 — 2026 (Production Agency Stack)",
+        role: "Autonomous Systems Architect & Lead Engineer",
+        liveUrl: "pay.html?inv=INV-1002&am=10&pa=saiaaravv@okicici",
+        overview: "An enterprise-grade, ₹0/month business automation stack built for modern digital agencies. Connects instant Instagram Comment-to-DM lead capture, a 2-step consultative AI email response funnel with multi-currency quoting ($/£/€/₹), and dynamic UPI invoicing with a viral, real-time thermal receipt printing animation.",
+        challenge: "Traditional SaaS automation suites (Zapier, HubSpot, ManyChat Pro) demand costly $200+/mo subscription tiers, complex manual lead quoting, and static, boring payment invoices that fail to delight customers.",
+        solution: [
+            "Built a high-conversion Instagram Comment-to-DM bot delivering lead magnets and portfolio access within 1.8 seconds of a comment.",
+            "Engineered a 24/7 AI Email Lead Responder using Google Apps Script & Gemini API that detects client geography and quotes custom scopes in their local currency ($ USD, £ GBP, € EUR, ₹ INR).",
+            "Created an interactive POS thermal receipt checkout page with procedural Web Audio API printer sound effects, animated rubber stamp thump, and celebratory confetti.",
+            "Integrated real-time bank SMS and push notification webhooks via MacroDroid to automatically reconcile payments into Google Sheets without payment gateway cuts."
+        ],
+        stack: ["Instagram Graph API", "Google Apps Script", "Gemini 2.5 AI", "Web Audio API", "UPI Deep Links", "MacroDroid", "Vercel"]
     }
 };
 
