@@ -95,7 +95,7 @@ function initCard3DTilt() {
 function initThemeToggle() {
     const toggleBtn = document.getElementById('theme-toggle');
     const themeIcon = document.getElementById('theme-icon');
-    const savedTheme = localStorage.getItem('aaravsinh-editorial-theme') || 'theme-light';
+    const savedTheme = localStorage.getItem('aaravsinh-editorial-theme') || 'theme-dark';
 
     document.body.className = savedTheme;
     updateThemeIcon(savedTheme);

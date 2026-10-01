@@ -5,36 +5,39 @@
 
 /* --- 1. CSS Custom Properties / Tokens --- */
 :root {
-    /* Color Palette (Option B: Split-Tone Sand Dune & Cyprus System) */
-    --bg-main: #F0EDE5;          /* Signature Sand Dune Canvas */
-    --bg-surface: #F9F7F2;       /* Warm Soft Ivory for Elevated Cards */
-    --bg-cream: #E6E1D4;         /* Rich Tactile Sand Dune Accent */
-    --bg-card: #FFFFFF;          /* Pure Crisp Card Surface */
+    /* Color Palette — Luxury "Deep Forest & Golden Rush" System */
+    --bg-main: #F7F9F6;          /* Crisp Alabaster Sand (Light Mode) */
+    --bg-surface: #FFFFFF;       /* Pure Ivory Surface */
+    --bg-cream: #E9EFE9;         /* Soft Forest Sage Tint */
+    --bg-card: #FFFFFF;          /* Pure Card Surface */
     
-    --text-headline: #002B28;    /* Deep Cyprus Obsidian */
-    --text-body: #2B3D3B;        /* High-Contrast Editorial Spruce */
-    --text-muted: #5F7370;       /* Muted Sage Slate */
-    --text-faint: #8E9F9D;       /* Hairline Spruce */
+    --text-headline: #0D2818;    /* Deep Forest Evergreen Headline */
+    --text-body: #1F3F2A;        /* High-Contrast Forest Spruce */
+    --text-muted: #4A6B53;       /* Muted Pine Sage */
+    --text-faint: #799781;       /* Subtle Sage */
 
-    /* Signature Cyprus Accent (Replaces standard blue) */
-    --royal-blue: #004643;       /* Cyprus (#004643) */
-    --royal-blue-hover: #003330;
-    --royal-blue-light: #E0EBE9;
-    --royal-blue-subtle: rgba(0, 70, 67, 0.08);
+    /* Golden Rush Primary Brand Accent */
+    --royal-blue: #D97706;       /* Warm Amber Gold in Light Mode */
+    --royal-blue-hover: #B45309;
+    --royal-blue-light: rgba(255, 183, 3, 0.16);
+    --royal-blue-subtle: rgba(255, 183, 3, 0.08);
+    --golden-rush: linear-gradient(135deg, #FFD700 0%, #FF9800 100%);
+    --golden-rush-glow: 0 4px 20px rgba(255, 215, 0, 0.45);
 
     /* Accents */
-    --accent-emerald: #0D7A73;
-    --accent-terracotta: #D2691E;
+    --accent-emerald: #1B4332;
+    --accent-gold: #FFD700;
+    --accent-terracotta: #FF9800;
 
     /* Borders & Hairlines */
-    --border-subtle: rgba(0, 70, 67, 0.12);
-    --border-med: rgba(0, 70, 67, 0.22);
-    --border-strong: #004643;
+    --border-subtle: rgba(13, 40, 24, 0.12);
+    --border-med: rgba(13, 40, 24, 0.22);
+    --border-strong: #0D2818;
 
     /* Soft Luxury Shadows */
-    --shadow-soft: 0 4px 20px rgba(0, 70, 67, 0.05);
-    --shadow-card: 0 12px 36px rgba(0, 70, 67, 0.08);
-    --shadow-hover: 0 20px 48px rgba(0, 70, 67, 0.14);
+    --shadow-soft: 0 4px 20px rgba(13, 40, 24, 0.06);
+    --shadow-card: 0 12px 36px rgba(13, 40, 24, 0.10);
+    --shadow-hover: 0 20px 48px rgba(13, 40, 24, 0.18);
 
     /* Typography */
     --font-display: 'Syne', sans-serif;
@@ -55,30 +58,32 @@
     --transition-fast: 0.2s ease;
 }
 
-/* Dark Mode Overrides (Deep Nocturnal Cyprus & Warm Sand Typography) */
+/* Dark Mode Overrides — Deep Forest (#0D2818) & Golden Rush (#FFD700 | #FF9800) */
 body.theme-dark {
-    --bg-main: #061716;          /* Deep Nocturnal Cyprus */
-    --bg-surface: #0B2221;       /* Midnight Cyprus Surface */
-    --bg-cream: #12302E;         /* Deep Spruce Accent */
-    --bg-card: #0D2625;          /* Card Elevated Cyprus */
+    --bg-main: #0D2818;          /* Deep Forest Signature Canvas */
+    --bg-surface: #143A25;       /* Elevated Forest Surface Glass */
+    --bg-cream: #1B4332;         /* Deep Forest Secondary Accordion */
+    --bg-card: #16402A;          /* Card Elevated Forest */
 
-    --text-headline: #F0EDE5;    /* Sand Dune Headline */
-    --text-body: #D4CEBF;        /* Warm Parchment Body */
-    --text-muted: #9BAEA9;       /* Soft Mint-Grey Muted */
-    --text-faint: #5D7570;       /* Muted Spruce Faint */
+    --text-headline: #FFFFFF;    /* Crisp White Headlines */
+    --text-body: #D8F3DC;        /* Soft Pale Sage Mint Body */
+    --text-muted: #95D5B2;       /* Luminous Mint-Sage */
+    --text-faint: #52B788;       /* Subtle Forest Accent */
 
-    --royal-blue: #12A59C;       /* Luminous Cyprus Mint in Dark Mode */
-    --royal-blue-hover: #15BAAF;
-    --royal-blue-light: rgba(18, 165, 156, 0.15);
-    --royal-blue-subtle: rgba(18, 165, 156, 0.10);
+    --royal-blue: #FFD700;       /* Golden Rush Gold */
+    --royal-blue-hover: #FF9800; /* Vibrant Amber Hover */
+    --royal-blue-light: rgba(255, 215, 0, 0.18);
+    --royal-blue-subtle: rgba(255, 215, 0, 0.10);
+    --golden-rush: linear-gradient(135deg, #FFD700 0%, #FF9800 100%);
+    --golden-rush-glow: 0 6px 25px rgba(255, 215, 0, 0.45);
 
-    --border-subtle: rgba(240, 237, 229, 0.10);
-    --border-med: rgba(240, 237, 229, 0.18);
-    --border-strong: #F0EDE5;
+    --border-subtle: rgba(255, 215, 0, 0.16);
+    --border-med: rgba(255, 215, 0, 0.28);
+    --border-strong: #FFD700;
 
-    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.4);
-    --shadow-card: 0 12px 36px rgba(0, 0, 0, 0.55);
-    --shadow-hover: 0 20px 48px rgba(0, 70, 67, 0.35);
+    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.45);
+    --shadow-card: 0 12px 36px rgba(0, 0, 0, 0.6);
+    --shadow-hover: 0 20px 48px rgba(255, 215, 0, 0.25);
 }
 
 /* --- 2. Base & Reset --- */
@@ -331,15 +336,17 @@ body.theme-dark .editorial-header {
 }
 
 .btn-pill-royal {
-    background-color: var(--royal-blue);
-    color: #FFFFFF;
-    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+    background: var(--golden-rush, linear-gradient(135deg, #FFD700 0%, #FF9800 100%));
+    color: #0D2818 !important;
+    font-weight: 800;
+    box-shadow: 0 4px 18px rgba(255, 215, 0, 0.4);
 }
 
 .btn-pill-royal:hover {
-    background-color: var(--royal-blue-hover);
+    background: linear-gradient(135deg, #FFE033 0%, #FFA726 100%);
+    color: #06170E !important;
     transform: translateY(-2px);
-    box-shadow: 0 8px 22px rgba(37, 99, 235, 0.4);
+    box-shadow: 0 8px 26px rgba(255, 215, 0, 0.6);
 }
 
 .mobile-menu-cta {
@@ -4257,84 +4264,89 @@ body.theme-dark .footer-thank-you-watermark {
     border-color: rgba(240, 237, 229, 0.16);
 }
 
+#contact.split-tone-cyprus {
+    background-color: #0D2818 !important;
+}
+
 #contact.split-tone-cyprus .form-input-wrap label {
-    color: #F0EDE5;
+    color: #D8F3DC;
 }
 
 #contact.split-tone-cyprus .form-input-wrap input,
 #contact.split-tone-cyprus .form-input-wrap textarea {
-    background: #003634;
-    border: 1px solid rgba(240, 237, 229, 0.18);
-    color: #F0EDE5;
+    background: #143A25;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    color: #FFFFFF;
 }
 
 #contact.split-tone-cyprus .form-input-wrap input:focus,
 #contact.split-tone-cyprus .form-input-wrap textarea:focus {
-    border-color: #5CD2C6;
-    box-shadow: 0 0 0 3px rgba(92, 210, 198, 0.2);
+    border-color: #FFD700;
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.25);
 }
 
 #contact.split-tone-cyprus .btn-pill-submit {
-    background: #F0EDE5;
-    color: #004643;
+    background: linear-gradient(135deg, #FFD700 0%, #FF9800 100%);
+    color: #0D2818;
     font-weight: 800;
     border: none;
+    box-shadow: 0 4px 18px rgba(255, 215, 0, 0.4);
 }
 
 #contact.split-tone-cyprus .btn-pill-submit:hover {
-    background: #FFFFFF;
-    color: #003330;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    background: linear-gradient(135deg, #FFE033 0%, #FFA726 100%);
+    color: #06170E;
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.6);
 }
 
-/* Editorial Footer in Split-Tone */
+/* Editorial Footer in Deep Forest & Golden Rush */
 .split-tone-footer {
-    background-color: #003330;
-    color: #F0EDE5;
-    border-top: 1px solid rgba(240, 237, 229, 0.1);
+    background-color: #081C11;
+    color: #D8F3DC;
+    border-top: 1px solid rgba(255, 215, 0, 0.12);
 }
 
 .split-tone-footer .footer-thank-you-watermark {
-    color: rgba(240, 237, 229, 0.04);
+    color: rgba(255, 215, 0, 0.03);
 }
 
 .split-tone-footer .footer-logo {
-    color: #F0EDE5;
+    color: #FFFFFF;
 }
 
 .split-tone-footer .footer-tagline {
-    color: #9BAEA9;
+    color: #95D5B2;
 }
 
 .split-tone-footer .fn-title {
-    color: #5CD2C6;
+    color: #FFD700;
 }
 
 .split-tone-footer .footer-nav-col a {
-    color: #D4CEBF;
+    color: #D8F3DC;
 }
 
 .split-tone-footer .footer-nav-col a:hover {
-    color: #F0EDE5;
+    color: #FFD700;
 }
 
 .split-tone-footer .footer-nav-col span {
-    color: #9BAEA9;
+    color: #74C69D;
 }
 
 .split-tone-footer .footer-copyright-bar {
-    color: #7A918C;
+    color: #52B788;
 }
 
 .split-tone-footer .btn-back-top {
-    background: #004643;
-    color: #F0EDE5;
-    border-color: rgba(240, 237, 229, 0.18);
+    background: #143A25;
+    color: #FFD700;
+    border-color: rgba(255, 215, 0, 0.25);
 }
 
 .split-tone-footer .btn-back-top:hover {
-    background: #F0EDE5;
-    color: #004643;
+    background: linear-gradient(135deg, #FFD700, #FF9800);
+    color: #0D2818;
 }
 
 /* =========================================
