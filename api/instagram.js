@@ -14,6 +14,8 @@ const GEMINI_API_KEY = process.env.GEMINI_API_KEY || Buffer.from(GEMINI_B64, 'ba
 
 // In-memory human takeover tracker (Maps customerId -> expiryTimestamp)
 const humanTakeoverMap = new Map();
+// Track message IDs sent by our bot so echo events do not misidentify our bot as a human!
+const sentBotMessageIds = new Set();
 
 // Encoded tokens to avoid git secret scan flags
 const EDITCRAFT_TOKEN_B64 = 'SUdBQU8wRnBndEFWSkJaQUZsdVVFNDRSelZ4VjFKQ1Mwb3piMjh0UTA5RVMwaHhkbmd3YURGV00wOWFaQW5od1lrVTBjVk5oWkFVdExkazVHVDBsU1NtTnJVbVZzU25sa1pBMnhVTlV0M1RuVlFWalJXVW5kVVdYZFVaQUhWa2VtNU1ZbmRCU210cU1rOTZUQzFIVUVRMmJWSmpNMDVuVHpsQ1pBMnh1VWxoU2JFaDJaQXdaRFpE';
@@ -163,6 +165,9 @@ async function sendInstagramMessage(recipientId, text, token) {
     });
     const result = await res.json();
     console.log('Instagram send result:', result);
+    if (result && (result.message_id || result.id)) {
+      sentBotMessageIds.add(String(result.message_id || result.id));
+    }
   } catch (e) {
     console.error('Endpoint request failed:', e.message);
   }
@@ -213,8 +218,21 @@ export default async function handler(req, res) {
         for (const event of messagings) {
           // 1. Human Takeover Detection: Did the owner manually reply from the Instagram phone app?
           if (event.message && event.message.is_echo) {
+            const mid = event.message.mid ? String(event.message.mid) : '';
+            // If this echo is from our bot's own message, IGNORE IT!
+            if (mid && sentBotMessageIds.has(mid)) {
+              sentBotMessageIds.delete(mid);
+              console.log(`[Echo] Bot's own message echo (${mid}) ignored.`);
+              continue;
+            }
+
             const isBotMessage = event.message.app_id && String(event.message.app_id) === String(META_APP_ID);
-            if (!isBotMessage && event.recipient && event.recipient.id) {
+            if (isBotMessage) {
+              continue;
+            }
+
+            // Real human owner sent this from Instagram mobile app!
+            if (event.recipient && event.recipient.id) {
               const customerId = String(event.recipient.id);
               const text = (event.message.text || '').toLowerCase().trim();
 
@@ -227,7 +245,7 @@ export default async function handler(req, res) {
                   expiry: Date.now() + 24 * 60 * 60 * 1000,
                   lastGratitudeSent: 0
                 });
-                console.log(`[Human Takeover] Detected manual reply from owner to customer ${customerId}. AI bot paused for 24h.`);
+                console.log(`[Human Takeover] Manual reply detected from owner to customer ${customerId}. AI bot paused for 24h.`);
               }
             }
             continue;
@@ -244,9 +262,12 @@ export default async function handler(req, res) {
               continue;
             }
 
-            // Protection B: Human Takeover Active? Send polite gratitude holding message!
+            // If the customer asks a substantive question (e.g. Jivamrut, products, pricing), ALWAYS answer fully!
+            const isDetailedQuestion = /jivamrut|જીવામૃત|ગોળ|સીંગતેલ|singtel|jaggery|bhav|ભાવ|ખાતર|ખેતી|પદ્ધતિ|વિગત|માહિતી|website|pricing/i.test(userText);
+
+            // Protection B: Human Takeover Active? Send polite gratitude holding message (only for casual/followup chat)
             const takeover = humanTakeoverMap.get(senderId);
-            if (takeover && Date.now() < takeover.expiry) {
+            if (!isDetailedQuestion && takeover && Date.now() < takeover.expiry) {
               const now = Date.now();
               // Only send gratitude holding message once per 4 hours so we don't spam them
               if (!takeover.lastGratitudeSent || (now - takeover.lastGratitudeSent) > 4 * 60 * 60 * 1000) {
