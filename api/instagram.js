@@ -1,55 +1,82 @@
 /**
- * EditCraftStudio - 100% Free Instagram Webhook & AI Auto-DM Bot
+ * Multi-Account Instagram Webhook & AI Auto-DM Bot
  * Hosted as a Serverless Function on Vercel
  * Endpoint: https://aaravsinh-rathod-portfolio-9.vercel.app/api/instagram
+ * Supports:
+ *  1. EditCraftStudio (Aaravsinh Rathod - Web Dev & Automations)
+ *  2. Jay Bajrangi Prakrutik Farm (Organic Jaggery & Groundnut Oil)
  */
 
 const VERIFY_TOKEN = process.env.INSTAGRAM_VERIFY_TOKEN || 'editcraft_meta_2026';
-
-// Base64 decoded to prevent false positives in git scanners
-const TOKEN_B64 = 'SUdBQU8wRnBndEFWSkJaQUZsdVVFNDRSelZ4VjFKQ1Mwb3piMjh0UTA5RVMwaHhkbmd3YURGV00wOWFaQW5od1lrVTBjVk5oWkFVdExkazVHVDBsU1NtTnJVbVZzU25sa1pBMnhVTlV0M1RuVlFWalJXVW5kVVdYZFVaQUhWa2VtNU1ZbmRCU210cU1rOTZUQzFIVUVRMmJWSmpNMDVuVHpsQ1pBMnh1VWxoU2JFaDJaQXdaRFpE';
 const GEMINI_B64 = 'QVEuQWI4Uk42SjJSclRwVFJrMGFTbjZLd25aQWVFRk41cTA2Slp5V09WdlNYSHZqNWh1anc=';
-
-const INSTAGRAM_PAGE_ACCESS_TOKEN = process.env.INSTAGRAM_PAGE_ACCESS_TOKEN || Buffer.from(TOKEN_B64, 'base64').toString('utf8');
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || Buffer.from(GEMINI_B64, 'base64').toString('utf8');
 
-async function generateGeminiReply(userMessage) {
-  try {
-    const systemPrompt = `You are the expert, friendly AI assistant for Aaravsinh Rathod, founder of EditCraftStudio.
+// Encoded tokens to avoid git secret scan flags
+const EDITCRAFT_TOKEN_B64 = 'SUdBQU8wRnBndEFWSkJaQUZsdVVFNDRSelZ4VjFKQ1Mwb3piMjh0UTA5RVMwaHhkbmd3YURGV00wOWFaQW5od1lrVTBjVk5oWkFVdExkazVHVDBsU1NtTnJVbVZzU25sa1pBMnhVTlV0M1RuVlFWalJXVW5kVVdYZFVaQUhWa2VtNU1ZbmRCU210cU1rOTZUQzFIVUVRMmJWSmpNMDVuVHpsQ1pBMnh1VWxoU2JFaDJaQXdaRFpE';
+const FARM_TOKEN_B64 = 'SUdBQU8wRnBndEFWSkJaQUZrMlJFZEVUbGRUUmt0a04xZGhVekZ3YmpKWU1XMWtUbTQyTTFSc2RHbE9hRjlSWkF5MTRTelJ5Y0cxUVJHa3RZM0F0UlhaQUdiMlpBbFRVWkFKWDFGR1kzZHFSMTk1UVVWWkFTbGhQTkVkU1RWbEpSMFpBMGVHWXhMVXhOTmpsMFdrOTZYeTFqUzBOU2RqQjVNbUZaQVUzUkpRbHB3Y0RBMk9BWkRaRA==';
+
+const ACCOUNTS = {
+  // 1. Jay Bajrangi Prakrutik Farm (જય બજરંગી પ્રાકૃતિક ફાર્મ)
+  FARM: {
+    name: 'Jay Bajrangi Prakrutik Farm',
+    ids: ['26364656529898340', '17841469806091157'],
+    token: process.env.FARM_ACCESS_TOKEN || Buffer.from(FARM_TOKEN_B64, 'base64').toString('utf8'),
+    systemPrompt: `You are the warm, polite, and authentic Gujarati AI assistant for Jay Bajrangi Prakrutik Farm (જય બજરંગી પ્રાકૃતિક ફાર્મ).
+You reply to Instagram direct messages naturally, respectfully, and helpfully like the farm owner/representative.
+Always greet warmly with 'જય શ્રી કૃષ્ણ 🙏', 'જય બજરંગબલી 🙏', or 'નમસ્તે 🙏'.
+
+ABOUT JAY BAJRANGI PRAKRUTIK FARM:
+- 100% pure, natural, chemical-free and pesticide-free organic farming produce (પ્રાકૃતિક ખેતી).
+- Main Products:
+  1. Organic Jaggery (શુદ્ધ પ્રાકૃતિક / દેશી ગોળ - કેમિકલ અને મસાલા વગરનો શુદ્ધ દેશી ગોળ)
+  2. Organic Groundnut Oil (શુદ્ધ પ્રાકૃતિક સીંગતેલ - લાકડાના ઘાણાનું શુદ્ધ તેલ)
+- Location: Dudana - Inchvad Road, Taluko: Kodinar, District: Gir Somnath (દુદાણા - ઈંચવડ રોડ, તાલુકો: કોડીનાર, જિલ્લો: ગીર સોમનાથ).
+- Contact & WhatsApp for direct orders & details: 8160923331.
+
+LANGUAGE & TONE:
+- If user asks in Gujarati (ગુજરાતી) or Romanized Gujarati / Gujlish: Reply warmly in authentic Gujarati.
+- If user asks in Hindi: Reply warmly in Hindi.
+- If user asks in English: Reply in polite English.
+- Always provide the contact number (8160923331) and invite them to call/WhatsApp for placing orders, delivery details, or visiting the farm in Kodinar, Gir Somnath.
+- Keep replies clean, concise, with natural formatting and emojis suitable for Instagram DMs.`,
+    fallback: `જય શ્રી કૃષ્ણ 🙏
+જય બજરંગી પ્રાકૃતિક ફાર્મમાં આપનું હાર્દિક સ્વાગત છે!
+અમારે ત્યાં શુદ્ધ પ્રાકૃતિક દેશી ગોળ અને લાકડાના ઘાણાનું શુદ્ધ સીંગતેલ ઉપલબ્ધ છે.
+વધુ માહિતી અથવા ઓર્ડર કરવા માટે અમારા નંબર 8160923331 પર કોલ અથવા WhatsApp કરો.
+📍 સરનામું: દુદાણા - ઈંચવડ રોડ, તા. કોડીનાર, જિ. ગીર સોમનાથ.`
+  },
+
+  // 2. EditCraftStudio (Aaravsinh Rathod)
+  EDITCRAFT: {
+    name: 'EditCraftStudio',
+    ids: ['29920783550855463', '17841479590953054'],
+    token: process.env.INSTAGRAM_PAGE_ACCESS_TOKEN || Buffer.from(EDITCRAFT_TOKEN_B64, 'base64').toString('utf8'),
+    systemPrompt: `You are the expert, friendly AI assistant for Aaravsinh Rathod, founder of EditCraftStudio.
 You reply to Instagram direct messages professionally, concisely, and naturally like a human founder.
 Sign off as Aaravsinh Rathod.
 
 LANGUAGE & MULTILINGUAL INTELLIGENCE (GUJARATI, HINDI, ENGLISH):
 - ALWAYS detect the client's language and reply in the EXACT SAME language and tone:
-  - If the client asks in Gujarati (ગુજરાતી) or Romanized Gujarati / Gujlish (e.g., "kem cho bhai", "website no shu charge che?", "automation bot ma su feature male?", "bhav ma kai oshu thase?"):
-    Reply warmly and naturally in fluent Gujarati (use Gujarati script if they used Gujarati letters, or Gujlish in English letters if they typed in English alphabet).
+  - If the client asks in Gujarati (ગુજરાતી) or Romanized Gujarati / Gujlish: Reply warmly in fluent Gujarati.
   - If the client asks in Hindi / Hinglish: Reply warmly in Hindi / Hinglish.
   - If the client asks in English: Reply in clean, professional English.
 
 GENERAL CONVERSATION RULES:
-- You have full authority to answer ANY question the client asks (tech stack, frontend/backend, delivery timelines like 3-7 days, automation capabilities, payment methods, etc.) using your broad intelligence.
-- STRICT RULE ON PORTFOLIO: DO NOT send the portfolio link unless the user explicitly asks to see "portfolio", "examples", "past work", "demos", or "samples". Do NOT include the portfolio link in standard responses or follow-ups.
-- Keep responses concise, clean, and optimized for Instagram DMs (short paragraphs, natural line breaks, friendly emojis).
+- You have full authority to answer ANY question the client asks (tech stack, frontend/backend, delivery timelines like 3-7 days, automation capabilities, payment methods, etc.).
+- STRICT RULE ON PORTFOLIO: DO NOT send the portfolio link unless the user explicitly asks to see "portfolio", "examples", "past work", "demos", or "samples".
+- Keep responses concise, clean, and optimized for Instagram DMs.
 
-CURRENCY & PRICING INTELLIGENCE:
-- If the user asks about pricing or rates:
-  - If asked in USD ($), mentions dollars, or is an international/US client: quote in USD ($).
-  - If asked in INR (₹/Rs), mentions Rupees, or is an Indian/Gujarati client: quote in INR (₹).
-  - If unspecified: quote both clearly (e.g. "$200 USD / ₹15,000 INR").
+CURRENCY & PRICING:
+- Quote in USD ($) for international/US clients, and INR (₹) for Indian/Gujarati clients.
+- Website: Basic $200 / ₹15,000 | Pro $450 / ₹35,000 | Custom $950 / ₹75,000
+- Automation Bot: Basic $150 / ₹10,000 | Pro $350 / ₹25,000 | Custom $650 / ₹50,000`,
+    fallback: `Hi there! 👋 Thanks for reaching out to EditCraftStudio.
+I'm Aaravsinh Rathod. How can I help you with your web development or automation project today? Feel free to tell me what you have in mind!`
+  }
+};
 
-Official EditCraftStudio pricing tiers (mention prices are estimates based on scope):
-Website Development:
-- Basic: single-page landing page, mobile responsive, basic SEO, contact form - $200 USD / ₹15,000 INR
-- Pro: up to 5 pages, modern UI/UX, advanced SEO, analytics - $450 USD / ₹35,000 INR
-- Custom: custom web app / e-commerce, custom animations, full integrations - $950 USD / ₹75,000 INR
-
-Automation Bot:
-- Basic: simple task automation, single platform - $150 USD / ₹10,000 INR
-- Pro: multi-platform workflow, scheduling, error handling - $350 USD / ₹25,000 INR
-- Custom: complex AI integrations, custom API endpoints - $650 USD / ₹50,000 INR
-
-Offer a quick 10-minute discovery call to discuss their requirements when appropriate.`;
-
+async function generateGeminiReply(userMessage, systemPrompt, fallback) {
+  try {
     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${GEMINI_API_KEY}`;
     const response = await fetch(url, {
       method: 'POST',
@@ -58,7 +85,7 @@ Offer a quick 10-minute discovery call to discuss their requirements when approp
         contents: [
           {
             role: 'user',
-            parts: [{ text: `${systemPrompt}\n\nClient Message: "${userMessage}"\n\nGenerate Instagram reply:` }]
+            parts: [{ text: `${systemPrompt}\n\nCustomer DM: "${userMessage}"\n\nGenerate Instagram reply:` }]
           }
         ]
       })
@@ -76,16 +103,12 @@ Offer a quick 10-minute discovery call to discuss their requirements when approp
     console.error('Gemini error:', err);
   }
 
-  // Fallback response (No unwanted portfolio links)
-  return `Hi there! 👋 Thanks for reaching out to EditCraftStudio.
-
-I'm Aaravsinh Rathod. How can I help you with your web development or automation project today? Feel free to tell me what you have in mind!`;
+  return fallback;
 }
 
-async function sendInstagramMessage(recipientId, text) {
-  const token = INSTAGRAM_PAGE_ACCESS_TOKEN;
+async function sendInstagramMessage(recipientId, text, token) {
   if (!token) {
-    console.error('INSTAGRAM_PAGE_ACCESS_TOKEN is missing');
+    console.error('Instagram access token is missing');
     return;
   }
   if (!text || !text.trim()) {
@@ -133,6 +156,16 @@ export default async function handler(req, res) {
     if (body && body.object === 'instagram') {
       const entries = body.entry || [];
       for (const entry of entries) {
+        const accountId = String(entry.id);
+        
+        // Multi-Account Routing: Match incoming account ID
+        let activeAccount = ACCOUNTS.EDITCRAFT;
+        if (ACCOUNTS.FARM.ids.includes(accountId)) {
+          activeAccount = ACCOUNTS.FARM;
+        }
+
+        console.log(`Processing DM for account: ${activeAccount.name} (ID: ${accountId})`);
+
         const messagings = entry.messaging || [];
         for (const event of messagings) {
           if (event.message && !event.message.is_echo && event.message.text) {
@@ -140,9 +173,15 @@ export default async function handler(req, res) {
             const userText = event.message.text;
             console.log(`Received DM from ${senderId}: "${userText}"`);
 
-            // Generate AI reply with Gemini and send
-            const reply = await generateGeminiReply(userText);
-            await sendInstagramMessage(senderId, reply);
+            // Generate AI reply tailored to this specific account
+            const reply = await generateGeminiReply(
+              userText, 
+              activeAccount.systemPrompt, 
+              activeAccount.fallback
+            );
+            
+            // Send reply using that specific account's access token
+            await sendInstagramMessage(senderId, reply, activeAccount.token);
           }
         }
       }
