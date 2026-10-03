@@ -225,16 +225,15 @@ const CASE_STUDIES = {
         category: "AI Automations, Fintech & Autonomous Workflows",
         timeline: "2025 — 2026 (Production Agency Stack)",
         role: "Autonomous Systems Architect & Lead Engineer",
-        liveUrl: "pay.html?inv=INV-1002&am=10&pa=saiaaravv@okicici",
-        overview: "An enterprise-grade, ₹0/month business automation stack built for modern digital agencies. Connects a 24/7 multilingual Instagram AI Direct Message chatbot (fluent in English, Hindi & Gujarati), a 2-step consultative AI email response funnel with multi-currency quoting ($/£/€/₹), and dynamic UPI invoicing with a viral, real-time thermal receipt printing animation.",
-        challenge: "Traditional SaaS automation suites (Zapier, HubSpot, ManyChat Pro) demand costly $200+/mo subscription tiers, complex manual lead quoting, and static, boring payment invoices that fail to delight customers.",
+        liveUrl: "https://ig.me/m/editcraftstudio9",
+        overview: "An enterprise-grade, ₹0/month business automation stack built for modern digital agencies. Connects a 24/7 multilingual Instagram AI Direct Message chatbot (fluent in English, Hindi & Gujarati), smart human takeover protection, and a 2-step consultative AI email response funnel with multi-currency quoting ($/£/€/₹).",
+        challenge: "Traditional SaaS automation suites (Zapier, HubSpot, ManyChat Pro) demand costly $200+/mo subscription tiers and complex manual lead triage.",
         solution: [
             "Engineered a 24/7 Instagram AI Direct Message Chatbot with multilingual intelligence (English, Hindi, Gujarati), automated scope estimation, and smart human takeover protection.",
             "Engineered a 24/7 AI Email Lead Responder using Google Apps Script & Gemini API that detects client geography and quotes custom scopes in their local currency ($ USD, £ GBP, € EUR, ₹ INR).",
-            "Created an interactive POS thermal receipt checkout page with procedural Web Audio API printer sound effects, animated rubber stamp thump, and celebratory confetti.",
-            "Integrated real-time bank SMS and push notification webhooks via MacroDroid to automatically reconcile payments into Google Sheets without payment gateway cuts."
+            "Configured autonomous lead ingestion pipelines that synchronize prospective client records directly into Google Sheets CRM without third-party integration charges."
         ],
-        stack: ["Instagram Graph API", "Google Apps Script", "Gemini 2.5 AI", "Web Audio API", "UPI Deep Links", "MacroDroid", "Vercel"]
+        stack: ["Instagram Graph API", "Google Apps Script", "Gemini 3.1 AI", "Vercel Serverless", "Meta Webhooks"]
     }
 };
 
