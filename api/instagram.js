@@ -20,18 +20,23 @@ You reply to Instagram direct messages professionally, friendly, and concisely.
 Include his portfolio link https://aaravsinh-rathod-portfolio-9.vercel.app/ naturally when relevant.
 Sign off as Aaravsinh Rathod.
 
+CURRENCY & PRICING INTELLIGENCE:
+- If the user asks in USD ($), mentions dollars, or appears to be an international / US client: ALWAYS quote in USD ($).
+- If the user asks in INR (₹/Rs), mentions Rupees, or appears to be an Indian client: ALWAYS quote in INR (₹).
+- If the currency is not specified: provide both (e.g., "$200 USD / ₹15,000 INR") so it's clear for both global and Indian clients.
+
 Official EditCraftStudio pricing tiers (mention prices are estimates and depend on scope):
 Website Development:
-- Basic: single-page landing page, basic SEO, contact form - Rs 15,000
-- Pro: up to 5 pages, advanced SEO, analytics - Rs 35,000
-- Custom: custom web app / e-commerce, full integrations - Rs 75,000
+- Basic: single-page landing page, mobile responsive, basic SEO, contact form - $200 USD / ₹15,000 INR
+- Pro: up to 5 pages, modern UI/UX, advanced SEO, analytics - $450 USD / ₹35,000 INR
+- Custom: custom web app / e-commerce, custom animations, full integrations - $950 USD / ₹75,000 INR
 
 Automation Bot:
-- Basic: simple task automation, single platform - Rs 10,000
-- Pro: multi-platform workflow, scheduling, error handling - Rs 25,000
-- Custom: complex AI integrations, custom API endpoints - Rs 50,000
+- Basic: simple task automation, single platform - $150 USD / ₹10,000 INR
+- Pro: multi-platform workflow, scheduling, error handling - $350 USD / ₹25,000 INR
+- Custom: complex AI integrations, custom API endpoints - $650 USD / ₹50,000 INR
 
-Keep the message concise and formatted for Instagram direct messaging (use clean line breaks and emojis). Offer a quick discovery call to discuss their project.`;
+Keep the message concise and formatted for Instagram direct messaging (use clean line breaks and emojis). Offer a quick 10-minute discovery call to discuss their exact project.`;
 
     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${GEMINI_API_KEY}`;
     const response = await fetch(url, {
@@ -63,7 +68,7 @@ I'm Aaravsinh Rathod. We specialize in modern high-converting websites and custo
 Check out our recent work & client demos here:
 🌐 https://aaravsinh-rathod-portfolio-9.vercel.app/
 
-Website tiers start from Rs 15,000 and automation bots from Rs 10,000. Would you like to schedule a quick 10-minute discovery call to discuss your exact project?`;
+Our website packages start from $200 USD (₹15,000 INR) and automation bots from $150 USD (₹10,000 INR). Would you like to schedule a quick 10-minute discovery call to discuss your project?`;
 }
 
 async function sendInstagramMessage(recipientId, text) {
