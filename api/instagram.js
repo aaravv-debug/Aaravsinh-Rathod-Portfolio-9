@@ -223,7 +223,10 @@ export default async function handler(req, res) {
                 console.log(`[Human Takeover] Resumed AI bot for customer ${customerId}`);
               } else {
                 // Human manually sent a message! Pause bot for this customer for 24 hours
-                humanTakeoverMap.set(customerId, Date.now() + 24 * 60 * 60 * 1000);
+                humanTakeoverMap.set(customerId, {
+                  expiry: Date.now() + 24 * 60 * 60 * 1000,
+                  lastGratitudeSent: 0
+                });
                 console.log(`[Human Takeover] Detected manual reply from owner to customer ${customerId}. AI bot paused for 24h.`);
               }
             }
@@ -241,10 +244,32 @@ export default async function handler(req, res) {
               continue;
             }
 
-            // Protection B: Human Takeover Active? Stay 100% silent!
-            const takeoverExpiry = humanTakeoverMap.get(senderId);
-            if (takeoverExpiry && Date.now() < takeoverExpiry) {
-              console.log(`[Human Takeover Active] Bot remaining silent for customer ${senderId} because human owner replied.`);
+            // Protection B: Human Takeover Active? Send polite gratitude holding message!
+            const takeover = humanTakeoverMap.get(senderId);
+            if (takeover && Date.now() < takeover.expiry) {
+              const now = Date.now();
+              // Only send gratitude holding message once per 4 hours so we don't spam them
+              if (!takeover.lastGratitudeSent || (now - takeover.lastGratitudeSent) > 4 * 60 * 60 * 1000) {
+                takeover.lastGratitudeSent = now;
+
+                const isGujarati = /[\u0A80-\u0AFF]|(kem|cho|su|bhav|male|che|aapo|karo|bhai)/i.test(userText);
+                let gratitudeMsg = '';
+
+                if (activeAccount.name === 'Jay Bajrangi Prakrutik Farm') {
+                  gratitudeMsg = `જય શ્રી કૃષ્ણ 🙏\nઆપના સંદેશ બદલ ખૂબ ખૂબ આભાર!\nઅમારા પ્રતિનિધિ ટૂંક સમયમાં આપની સાથે વાત કરશે. વધુ વિગત માટે 8160923331 પર સંપર્ક કરી શકો છો. ✨`;
+                } else {
+                  if (isGujarati) {
+                    gratitudeMsg = `આપના સંદેશ બદલ ખૂબ ખૂબ આભાર! 🙏\nAaravsinh Rathod ટૂંક સમયમાં જ તમારી સાથે સીધા જોડાશે. આપનો આભાર! ✨`;
+                  } else {
+                    gratitudeMsg = `Thank you for your message! 🙏\nAaravsinh Rathod has received your message and will be connecting with you shortly. Have a wonderful day! ✨`;
+                  }
+                }
+
+                console.log(`[Human Takeover] Sent gratitude holding message to customer ${senderId}`);
+                await sendInstagramMessage(senderId, gratitudeMsg, activeAccount.token);
+              } else {
+                console.log(`[Human Takeover] Gratitude message already sent recently to ${senderId}. Staying silent.`);
+              }
               continue;
             }
 
