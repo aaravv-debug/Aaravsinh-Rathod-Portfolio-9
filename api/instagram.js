@@ -8,8 +8,12 @@
  */
 
 const VERIFY_TOKEN = process.env.INSTAGRAM_VERIFY_TOKEN || 'editcraft_meta_2026';
+const META_APP_ID = process.env.META_APP_ID || '1396268945992953';
 const GEMINI_B64 = 'QVEuQWI4Uk42SjJSclRwVFJrMGFTbjZLd25aQWVFRk41cTA2Slp5V09WdlNYSHZqNWh1anc=';
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || Buffer.from(GEMINI_B64, 'base64').toString('utf8');
+
+// In-memory human takeover tracker (Maps customerId -> expiryTimestamp)
+const humanTakeoverMap = new Map();
 
 // Encoded tokens to avoid git secret scan flags
 const EDITCRAFT_TOKEN_B64 = 'SUdBQU8wRnBndEFWSkJaQUZsdVVFNDRSelZ4VjFKQ1Mwb3piMjh0UTA5RVMwaHhkbmd3YURGV00wOWFaQW5od1lrVTBjVk5oWkFVdExkazVHVDBsU1NtTnJVbVZzU25sa1pBMnhVTlV0M1RuVlFWalJXVW5kVVdYZFVaQUhWa2VtNU1ZbmRCU210cU1rOTZUQzFIVUVRMmJWSmpNMDVuVHpsQ1pBMnh1VWxoU2JFaDJaQXdaRFpE';
@@ -207,13 +211,40 @@ export default async function handler(req, res) {
         ];
 
         for (const event of messagings) {
+          // 1. Human Takeover Detection: Did the owner manually reply from the Instagram phone app?
+          if (event.message && event.message.is_echo) {
+            const isBotMessage = event.message.app_id && String(event.message.app_id) === String(META_APP_ID);
+            if (!isBotMessage && event.recipient && event.recipient.id) {
+              const customerId = String(event.recipient.id);
+              const text = (event.message.text || '').toLowerCase().trim();
+
+              if (text === '#bot on' || text === '#resume') {
+                humanTakeoverMap.delete(customerId);
+                console.log(`[Human Takeover] Resumed AI bot for customer ${customerId}`);
+              } else {
+                // Human manually sent a message! Pause bot for this customer for 24 hours
+                humanTakeoverMap.set(customerId, Date.now() + 24 * 60 * 60 * 1000);
+                console.log(`[Human Takeover] Detected manual reply from owner to customer ${customerId}. AI bot paused for 24h.`);
+              }
+            }
+            continue;
+          }
+
+          // 2. Incoming Customer Message
           if (event.message && !event.message.is_echo && event.message.text) {
             const senderId = String(event.sender.id);
             const userText = event.message.text;
 
-            // 1. Anti-Loop Protection: Never reply if sender is one of our own bots
+            // Protection A: Never reply to internal bot accounts (Anti-Loop)
             if (ALL_MANAGED_IDS.includes(senderId)) {
-              console.log(`[Anti-Loop] Ignored message from internal bot account ${senderId} to prevent tennis match.`);
+              console.log(`[Anti-Loop] Ignored message from internal bot account ${senderId}.`);
+              continue;
+            }
+
+            // Protection B: Human Takeover Active? Stay 100% silent!
+            const takeoverExpiry = humanTakeoverMap.get(senderId);
+            if (takeoverExpiry && Date.now() < takeoverExpiry) {
+              console.log(`[Human Takeover Active] Bot remaining silent for customer ${senderId} because human owner replied.`);
               continue;
             }
 
