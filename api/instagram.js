@@ -77,34 +77,27 @@ async function sendInstagramMessage(recipientId, text) {
     console.error('INSTAGRAM_PAGE_ACCESS_TOKEN is missing');
     return;
   }
+  if (!text || !text.trim()) {
+    console.warn('Cannot send empty message');
+    return;
+  }
 
   const payload = {
     recipient: { id: recipientId },
-    message: { text: text }
+    message: { text: text.trim() }
   };
 
-  // Try Instagram Graph API endpoint first, then Facebook Graph API
-  const endpoints = [
-    `https://graph.instagram.com/v20.0/me/messages?access_token=${token}`,
-    `https://graph.facebook.com/v20.0/me/messages?access_token=${token}`
-  ];
-
-  for (const url of endpoints) {
-    try {
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      const result = await res.json();
-      if (!result.error) {
-        console.log('Successfully sent Instagram DM:', result);
-        return;
-      }
-      console.warn('Endpoint error, trying next:', result.error.message);
-    } catch (e) {
-      console.warn('Endpoint request failed:', e.message);
-    }
+  try {
+    const url = `https://graph.instagram.com/v20.0/me/messages?access_token=${token}`;
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const result = await res.json();
+    console.log('Instagram send result:', result);
+  } catch (e) {
+    console.error('Endpoint request failed:', e.message);
   }
 }
 
