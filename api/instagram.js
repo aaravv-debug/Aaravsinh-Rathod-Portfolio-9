@@ -70,7 +70,7 @@ LANGUAGE & TONE:
 - If user asks in English: Reply in polite English.
 - Clearly explain the timeline (ગોળ ઓક્ટોબર અંતમાં & સીંગતેલ નવેમ્બર પછી).
 - Always encourage them to share their name/number or message on 8160923331 for advance booking.
-- Keep replies clean, concise, with natural formatting and emojis suitable for Instagram DMs.`,
+- Keep replies clean, concise, under 700 characters with natural formatting and emojis suitable for Instagram DMs.`,
     fallback: `જય શ્રી કૃષ્ણ 🙏
 જય બજરંગી પ્રાકૃતિક ફાર્મમાં આપનું હાર્દિક સ્વાગત છે!
 અમારા ફાર્મ પર:
@@ -151,25 +151,53 @@ async function sendInstagramMessage(recipientId, text, token) {
     return;
   }
 
-  const payload = {
-    recipient: { id: recipientId },
-    message: { text: text.trim() }
-  };
+  // Meta Instagram DM limit is 1,000 characters. Auto-chunk long responses into safe segments!
+  const rawText = text.trim();
+  const chunks = [];
 
-  try {
-    const url = `https://graph.instagram.com/v20.0/me/messages?access_token=${token}`;
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-    const result = await res.json();
-    console.log('Instagram send result:', result);
-    if (result && (result.message_id || result.id)) {
-      sentBotMessageIds.add(String(result.message_id || result.id));
+  if (rawText.length <= 900) {
+    chunks.push(rawText);
+  } else {
+    const paragraphs = rawText.split('\n\n');
+    let currentChunk = '';
+    for (const p of paragraphs) {
+      if ((currentChunk + '\n\n' + p).length <= 850) {
+        currentChunk = currentChunk ? currentChunk + '\n\n' + p : p;
+      } else {
+        if (currentChunk) chunks.push(currentChunk);
+        if (p.length > 850) {
+          for (let i = 0; i < p.length; i += 800) {
+            chunks.push(p.slice(i, i + 800));
+          }
+          currentChunk = '';
+        } else {
+          currentChunk = p;
+        }
+      }
     }
-  } catch (e) {
-    console.error('Endpoint request failed:', e.message);
+    if (currentChunk) chunks.push(currentChunk);
+  }
+
+  for (const chunk of chunks) {
+    if (!chunk.trim()) continue;
+    try {
+      const url = `https://graph.instagram.com/v20.0/me/messages?access_token=${token}`;
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          recipient: { id: recipientId },
+          message: { text: chunk.trim() }
+        })
+      });
+      const result = await res.json();
+      console.log('Instagram send result:', result);
+      if (result && (result.message_id || result.id)) {
+        sentBotMessageIds.add(String(result.message_id || result.id));
+      }
+    } catch (e) {
+      console.error('Endpoint request failed:', e.message);
+    }
   }
 }
 
