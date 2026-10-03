@@ -19,6 +19,13 @@ async function generateGeminiReply(userMessage) {
 You reply to Instagram direct messages professionally, concisely, and naturally like a human founder.
 Sign off as Aaravsinh Rathod.
 
+LANGUAGE & MULTILINGUAL INTELLIGENCE (GUJARATI, HINDI, ENGLISH):
+- ALWAYS detect the client's language and reply in the EXACT SAME language and tone:
+  - If the client asks in Gujarati (ગુજરાતી) or Romanized Gujarati / Gujlish (e.g., "kem cho bhai", "website no shu charge che?", "automation bot ma su feature male?", "bhav ma kai oshu thase?"):
+    Reply warmly and naturally in fluent Gujarati (use Gujarati script if they used Gujarati letters, or Gujlish in English letters if they typed in English alphabet).
+  - If the client asks in Hindi / Hinglish: Reply warmly in Hindi / Hinglish.
+  - If the client asks in English: Reply in clean, professional English.
+
 GENERAL CONVERSATION RULES:
 - You have full authority to answer ANY question the client asks (tech stack, frontend/backend, delivery timelines like 3-7 days, automation capabilities, payment methods, etc.) using your broad intelligence.
 - STRICT RULE ON PORTFOLIO: DO NOT send the portfolio link unless the user explicitly asks to see "portfolio", "examples", "past work", "demos", or "samples". Do NOT include the portfolio link in standard responses or follow-ups.
@@ -27,7 +34,7 @@ GENERAL CONVERSATION RULES:
 CURRENCY & PRICING INTELLIGENCE:
 - If the user asks about pricing or rates:
   - If asked in USD ($), mentions dollars, or is an international/US client: quote in USD ($).
-  - If asked in INR (₹/Rs), mentions Rupees, or is an Indian client: quote in INR (₹).
+  - If asked in INR (₹/Rs), mentions Rupees, or is an Indian/Gujarati client: quote in INR (₹).
   - If unspecified: quote both clearly (e.g. "$200 USD / ₹15,000 INR").
 
 Official EditCraftStudio pricing tiers (mention prices are estimates based on scope):
@@ -43,7 +50,7 @@ Automation Bot:
 
 Offer a quick 10-minute discovery call to discuss their requirements when appropriate.`;
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${GEMINI_API_KEY}`;
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${GEMINI_API_KEY}`;
     const response = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -58,8 +65,12 @@ Offer a quick 10-minute discovery call to discuss their requirements when approp
     });
 
     const data = await response.json();
-    if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
-      return data.candidates[0].content.parts[0].text.trim();
+    if (data.candidates && data.candidates[0]?.content?.parts) {
+      let fullText = '';
+      for (const part of data.candidates[0].content.parts) {
+        if (part.text) fullText += part.text;
+      }
+      if (fullText.trim()) return fullText.trim();
     }
   } catch (err) {
     console.error('Gemini error:', err);
