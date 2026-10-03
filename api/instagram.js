@@ -201,11 +201,23 @@ export default async function handler(req, res) {
         }
 
         const messagings = entry.messaging || [];
+        const ALL_MANAGED_IDS = [
+          ...ACCOUNTS.FARM.ids,
+          ...ACCOUNTS.EDITCRAFT.ids
+        ];
+
         for (const event of messagings) {
           if (event.message && !event.message.is_echo && event.message.text) {
-            const senderId = event.sender.id;
+            const senderId = String(event.sender.id);
             const userText = event.message.text;
-            console.log(`Received DM from ${senderId}: "${userText}"`);
+
+            // 1. Anti-Loop Protection: Never reply if sender is one of our own bots
+            if (ALL_MANAGED_IDS.includes(senderId)) {
+              console.log(`[Anti-Loop] Ignored message from internal bot account ${senderId} to prevent tennis match.`);
+              continue;
+            }
+
+            console.log(`Received DM from customer ${senderId}: "${userText}"`);
 
             // Generate AI reply tailored to this specific account
             const reply = await generateGeminiReply(
