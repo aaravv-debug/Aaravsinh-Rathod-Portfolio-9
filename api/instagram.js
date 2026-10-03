@@ -23,7 +23,7 @@ const ACCOUNTS = {
   // 1. Jay Bajrangi Prakrutik Farm (જય બજરંગી પ્રાકૃતિક ફાર્મ)
   FARM: {
     name: 'Jay Bajrangi Prakrutik Farm',
-    enabled: false, // TEMPORARILY PAUSED
+    enabled: true, // ACTIVE & LIVE
     ids: ['26364656529898340', '17841469806091157'],
     token: process.env.FARM_ACCESS_TOKEN || Buffer.from(FARM_TOKEN_B64, 'base64').toString('utf8'),
     systemPrompt: `You are the warm, polite, and authentic Gujarati AI assistant for Jay Bajrangi Prakrutik Farm (જય બજરંગી પ્રાકૃતિક ફાર્મ).
